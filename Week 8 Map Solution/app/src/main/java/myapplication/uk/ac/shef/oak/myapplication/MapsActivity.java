@@ -6,8 +6,6 @@ package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -37,15 +35,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import pl.aprilapps.easyphotopicker.EasyImage;
+
+//import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -58,6 +58,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button mButtonStart;
     private Button mButtonEnd;
     private PendingIntent mLocationPendingIntent;
+    protected static ArrayList<LatLng> pathPoints = new ArrayList<LatLng>();
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -222,6 +223,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void stopLocationUpdates(){
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        pathPoints.clear();
     }
 
     @Override

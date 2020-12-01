@@ -6,6 +6,7 @@ package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.util.Log;
 
@@ -14,6 +15,8 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -21,6 +24,7 @@ import java.util.Date;
 public class LocationService extends IntentService {
     private Location mCurrentLocation;
     private String mLastUpdateTime;
+    Polyline path;
 
     public LocationService(String name) {
         super(name);
@@ -54,9 +58,18 @@ public class LocationService extends IntentService {
                         MapsActivity.getActivity().runOnUiThread(new Runnable() {
                             public void run() {
                                 try {
-                                    if (MapsActivity.getMap() != null)
-                                        MapsActivity.getMap().addMarker(new MarkerOptions().position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
-                                                .title(mLastUpdateTime));
+                                    if (MapsActivity.getMap() != null) {
+                                        LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+                                        MapsActivity.pathPoints.add(currentPos);
+                                        MapsActivity.getMap().clear();
+                                        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
+                                        for (int i = 0; i < MapsActivity.pathPoints.size(); i++) {
+                                            LatLng point = MapsActivity.pathPoints.get(i);
+                                            options.add(point);
+                                        }
+                                        path = MapsActivity.getMap().addPolyline(options);
+                                        MapsActivity.getMap().addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
+                                    }
                                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                                     // it centres the camera around the new location
                                     MapsActivity.getMap().moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
