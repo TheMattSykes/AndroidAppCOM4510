@@ -61,13 +61,11 @@ public class LocationService extends IntentService {
                                     if (MapsActivity.getMap() != null) {
                                         LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                                         MapsActivity.pathPoints.add(currentPos);
+                                        // Clearing the map, so the polyline can be drawn again
                                         MapsActivity.getMap().clear();
                                         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
-                                        for (int i = 0; i < MapsActivity.pathPoints.size(); i++) {
-                                            LatLng point = MapsActivity.pathPoints.get(i);
-                                            options.add(point);
-                                        }
                                         path = MapsActivity.getMap().addPolyline(options);
+                                        path.setPoints(MapsActivity.pathPoints);
                                         MapsActivity.getMap().addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
                                     }
                                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
