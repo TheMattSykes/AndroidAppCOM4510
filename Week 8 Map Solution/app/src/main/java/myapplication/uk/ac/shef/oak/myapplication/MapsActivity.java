@@ -6,12 +6,15 @@ package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,9 +30,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -40,6 +46,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapView mapView;
     private Button mButtonStart;
     private Button mButtonEnd;
+
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +81,55 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
         mButtonEnd.setEnabled(false);
+
+        initEasyImage();
+
+//        // the floating button that will allow us to get the images from the Gallery
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_camera);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                EasyImage.openCamera(getActivity(), 0);
+//            }
+//        });
     }
 
+    /**
+     * Override onCreateOptionsMenu to add a gallery icon to the top menu bar
+     * */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.topmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Override onOptionsItemSelected to allow the change to the gallery view
+     * when the button is pressed.
+     * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.tbutton) {
+            // Change to gallery view
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    /**
+     * Initialise EasyImage
+     */
+    private void initEasyImage() {
+        EasyImage.configuration(this)
+                .setImagesFolderName("EasyImage sample")
+                .setCopyTakenPhotosToPublicGalleryAppFolder(true)
+                .setCopyPickedImagesToPublicGalleryAppFolder(false)
+                .setAllowMultiplePickInGallery(true);
+    }
 
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -189,5 +244,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 14.0f));
 
+    }
+
+    public Activity getActivity() {
+        return activity;
     }
 }
