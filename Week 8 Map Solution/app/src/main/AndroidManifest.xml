@@ -31,10 +31,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <!--
-        android:name=".MapsActivity"
-        android:label="@string/title_activity_maps">
-        -->
         <activity
             android:name=".NewVisit"
             android:label="@string/title_activity_new_visit">
@@ -42,6 +38,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
         <service android:name=".LocationService"></service>
     </application>
