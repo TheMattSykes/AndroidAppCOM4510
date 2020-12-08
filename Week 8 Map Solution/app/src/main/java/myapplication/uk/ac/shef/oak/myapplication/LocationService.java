@@ -58,19 +58,20 @@ public class LocationService extends IntentService {
                         MapsActivity.getActivity().runOnUiThread(new Runnable() {
                             public void run() {
                                 try {
+                                    LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                                     if (MapsActivity.getMap() != null) {
-                                        LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                                         MapsActivity.pathPoints.add(currentPos);
                                         // Clearing the map, so the polyline can be drawn again
                                         MapsActivity.getMap().clear();
                                         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
                                         path = MapsActivity.getMap().addPolyline(options);
                                         path.setPoints(MapsActivity.pathPoints);
+                                        // Adding a marker for the current position
                                         MapsActivity.getMap().addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
                                     }
                                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                                     // it centres the camera around the new location
-                                    MapsActivity.getMap().moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
+                                    MapsActivity.getMap().moveCamera(CameraUpdateFactory.newLatLng(currentPos));
                                     // it moves the camera to the selected zoom
                                     MapsActivity.getMap().animateCamera(zoom);
                                 } catch (Exception e ){
