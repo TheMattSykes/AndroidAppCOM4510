@@ -10,7 +10,6 @@ class ImageElement {
     int image=-1;
     File file=null;
 
-
     public ImageElement(int image) {
         this.image = image;
 
