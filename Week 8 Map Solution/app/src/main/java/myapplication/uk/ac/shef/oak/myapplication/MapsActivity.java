@@ -96,6 +96,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 startLocationUpdates(getApplicationContext());
+                accelerometer.startAccelerometerRecording();
+                ambientTemp.startSensingTemperature();
                 if (mButtonEnd != null)
                     mButtonEnd.setEnabled(true);
                 mButtonStart.setEnabled(false);
@@ -108,6 +110,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 stopLocationUpdates();
+                accelerometer.stopAccelerometer();
+                ambientTemp.stopTemperatureSensor();
                 if (mButtonStart != null)
                     mButtonStart.setEnabled(true);
                 mButtonEnd.setEnabled(false);
@@ -238,21 +242,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onResume() {
         super.onResume();
-        accelerometer.startAccelerometerRecording();
-        ambientTemp.startSensingTemperature();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        accelerometer.stopAccelerometer();
-        ambientTemp.stopTemperatureSensor();
     }
 
 
