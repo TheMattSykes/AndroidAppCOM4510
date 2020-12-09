@@ -48,6 +48,7 @@
             </intent-filter>-->
         </activity>
         <service android:name=".LocationService"></service>
+        <service android:name=".SensorService"></service>
     </application>
 
 </manifest>
