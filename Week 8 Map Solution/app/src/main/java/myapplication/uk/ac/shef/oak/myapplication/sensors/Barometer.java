@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
+ * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
-package myapplication.uk.ac.shef.oak.myapplication;
+package myapplication.uk.ac.shef.oak.myapplication.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -11,11 +11,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.util.Log;
-
-
-/*
- * Copyright (c) 2019. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
- */
 
 
 public class Barometer {
@@ -73,7 +68,7 @@ public class Barometer {
                         lastReportTime = event.timestamp;
                         // if we have not see any movement on the side of the accelerometer, let's stop
                         long timeLag= actualTimeInMseconds-accelerometer.getLastReportTime();
-                        if (timeLag> STOPPING_THRESHOLD)
+                        if (timeLag > STOPPING_THRESHOLD)
                             stopBarometer();
                     }
                 }

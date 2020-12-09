@@ -43,6 +43,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
+import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
+import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,6 +62,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button mButtonEnd;
     private PendingIntent mLocationPendingIntent;
     protected static ArrayList<LatLng> pathPoints = new ArrayList<LatLng>();
+    private Barometer barometer;
+    private Accelerometer accelerometer;
+    private Temperature ambientTemp;
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -77,6 +83,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setActivity(this);
+        barometer = new Barometer(this);
+        accelerometer = new Accelerometer(this, barometer);
+        ambientTemp = new Temperature(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -188,6 +197,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void startLocationUpdates(Context context) {
+        pathPoints.clear();
         Intent intent = new Intent(context, LocationService.class);
         mLocationPendingIntent = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -223,18 +233,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void stopLocationUpdates(){
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        pathPoints.clear();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        accelerometer.startAccelerometerRecording();
+        ambientTemp.startSensingTemperature();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        accelerometer.stopAccelerometer();
+        ambientTemp.stopTemperatureSensor();
     }
 
 
