@@ -304,6 +304,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    public boolean addPhoto(MenuItem item) {
+        Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+        startActivity(intent);
+
+        return true;
+    }
+
 //    public Activity getActivity() {
 //        return activity;
 //    }
