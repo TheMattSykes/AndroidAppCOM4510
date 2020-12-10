@@ -42,8 +42,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".LocationService"></service>
-
         <activity
             android:name=".CameraActivity"
             android:label="@string/title_activity_camera">

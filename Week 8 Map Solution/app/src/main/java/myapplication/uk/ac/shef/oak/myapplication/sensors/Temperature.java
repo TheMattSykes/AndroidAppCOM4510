@@ -43,7 +43,7 @@ public class Temperature {
         if (!ambientTemperatureAvailable()) {
             Log.d(TAG, "Ambient Temperature unavailable");
         } else {
-            Log.d(TAG, "Using Barometer");
+            Log.d(TAG, "Using Temperature sensor");
             mTemperatureListener = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(SensorEvent event) {
