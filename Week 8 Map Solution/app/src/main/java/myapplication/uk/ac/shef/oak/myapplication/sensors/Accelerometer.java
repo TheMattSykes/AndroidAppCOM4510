@@ -105,7 +105,7 @@ public class Accelerometer {
 
 
     /**
-     * this stops the barometer
+     * this stops the barometer, as well as the accelerometer
      */
     public void stopAccelerometer() {
         if (standardAccelerometerAvailable()) {

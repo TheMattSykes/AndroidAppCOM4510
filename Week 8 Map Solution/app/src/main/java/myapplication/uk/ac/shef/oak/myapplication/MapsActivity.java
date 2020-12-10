@@ -61,7 +61,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Accelerometer accelerometer;
     private Temperature ambientTemp;
     private boolean firstStart;
-    private boolean tracking;
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -78,7 +77,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         firstStart = true;
-        tracking = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setActivity(this);
@@ -97,7 +95,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 stopLocationUpdates();
                 accelerometer.stopAccelerometer();
                 ambientTemp.stopTemperatureSensor();
-                tracking = false;
                 mButtonEnd.setEnabled(false);
             }
         });
@@ -139,8 +136,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onOptionsItemSelected(item);
     }
 
-
-
     /**
      * Initialise EasyImage
      */
@@ -152,11 +147,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setAllowMultiplePickInGallery(true);
     }
 
-    /*private void startLocationUpdates() {
-        initLocations();
-    }*/
-
-
+    /**
+     * Initialise location updates
+     */
     private void initLocations() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
@@ -184,6 +177,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Starting location updates
+     */
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
@@ -212,37 +208,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null /* Looper */);
     }
 
-    /*
-    private void startLocationUpdates(Context context) {
-        Intent intent = new Intent(context, LocationService.class);
-        mLocationPendingIntent = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Task<Void> locationTask = mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationPendingIntent);
-            if (locationTask != null) {
-                locationTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if (e instanceof ApiException) {
-                            Log.w("MapsActivity", ((ApiException) e).getStatusMessage());
-                        } else {
-                            Log.w("MapsActivity", e.getMessage());
-                        }
-                    }
-                });
-
-                locationTask.addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("MapsActivity", "restarting gps successful!");
-                    }
-                });
-
-
-            }
-        }
-    }*/
-
     /**
      * it stops the location updates
      */
@@ -250,6 +215,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
+    /**
+     * Resuming the activity and resetting the LocationRequest parameters
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -325,10 +293,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     /**
-     * Manipulates the map once available.
+     * Manipulates the map, once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -337,10 +304,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 14.0f));
 
     }
 
@@ -350,8 +313,4 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return true;
     }
-
-//    public Activity getActivity() {
-//        return activity;
-//    }
 }

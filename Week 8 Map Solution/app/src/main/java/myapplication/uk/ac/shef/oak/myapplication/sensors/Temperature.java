@@ -96,7 +96,7 @@ public class Temperature {
 
 
     /**
-     * this stops the barometer
+     * this stops the temperature sensor
      */
     public void stopTemperatureSensor() {
         if (ambientTemperatureAvailable()) {
@@ -108,15 +108,6 @@ public class Temperature {
             }
         }
         setStarted(false);
-    }
-
-    /**
-     * returns true if the temperature sensor is currently working
-     * @return
-     */
-
-    public boolean isStarted() {
-        return started;
     }
 
     public void setStarted(boolean started) {
