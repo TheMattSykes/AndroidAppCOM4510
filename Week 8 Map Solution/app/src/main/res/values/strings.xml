@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">COM4510 Assignment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_camera">Add Photos</string>
     <string name="action_settings">Settings</string>
