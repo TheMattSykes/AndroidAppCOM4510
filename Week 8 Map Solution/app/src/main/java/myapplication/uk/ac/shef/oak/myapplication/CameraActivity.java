@@ -97,21 +97,21 @@ public class CameraActivity extends AppCompatActivity {
      * artificial init of the data so to upload some images as a starting point
      */
     private void initData() {
-        myPictureList.add(new ImageElement(R.drawable.joe1));
-        myPictureList.add(new ImageElement(R.drawable.joe2));
-        myPictureList.add(new ImageElement(R.drawable.joe3));
-        myPictureList.add(new ImageElement(R.drawable.joe1));
-        myPictureList.add(new ImageElement(R.drawable.joe2));
-        myPictureList.add(new ImageElement(R.drawable.joe3));
-        myPictureList.add(new ImageElement(R.drawable.joe1));
-        myPictureList.add(new ImageElement(R.drawable.joe2));
-        myPictureList.add(new ImageElement(R.drawable.joe3));
-        myPictureList.add(new ImageElement(R.drawable.joe1));
-        myPictureList.add(new ImageElement(R.drawable.joe2));
-        myPictureList.add(new ImageElement(R.drawable.joe3));
-        myPictureList.add(new ImageElement(R.drawable.joe1));
-        myPictureList.add(new ImageElement(R.drawable.joe2));
-        myPictureList.add(new ImageElement(R.drawable.joe3));
+//        myPictureList.add(new ImageElement(R.drawable.joe1));
+//        myPictureList.add(new ImageElement(R.drawable.joe2));
+//        myPictureList.add(new ImageElement(R.drawable.joe3));
+//        myPictureList.add(new ImageElement(R.drawable.joe1));
+//        myPictureList.add(new ImageElement(R.drawable.joe2));
+//        myPictureList.add(new ImageElement(R.drawable.joe3));
+//        myPictureList.add(new ImageElement(R.drawable.joe1));
+//        myPictureList.add(new ImageElement(R.drawable.joe2));
+//        myPictureList.add(new ImageElement(R.drawable.joe3));
+//        myPictureList.add(new ImageElement(R.drawable.joe1));
+//        myPictureList.add(new ImageElement(R.drawable.joe2));
+//        myPictureList.add(new ImageElement(R.drawable.joe3));
+//        myPictureList.add(new ImageElement(R.drawable.joe1));
+//        myPictureList.add(new ImageElement(R.drawable.joe2));
+//        myPictureList.add(new ImageElement(R.drawable.joe3));
     }
 
     /**
