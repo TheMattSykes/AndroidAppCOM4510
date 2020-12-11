@@ -43,7 +43,7 @@ public class Temperature {
         if (!ambientTemperatureAvailable()) {
             Log.d(TAG, "Ambient Temperature unavailable");
         } else {
-            Log.d(TAG, "Using Barometer");
+            Log.d(TAG, "Using Temperature sensor");
             mTemperatureListener = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(SensorEvent event) {
@@ -96,7 +96,7 @@ public class Temperature {
 
 
     /**
-     * this stops the barometer
+     * this stops the temperature sensor
      */
     public void stopTemperatureSensor() {
         if (ambientTemperatureAvailable()) {
@@ -108,15 +108,6 @@ public class Temperature {
             }
         }
         setStarted(false);
-    }
-
-    /**
-     * returns true if the temperature sensor is currently working
-     * @return
-     */
-
-    public boolean isStarted() {
-        return started;
     }
 
     public void setStarted(boolean started) {
