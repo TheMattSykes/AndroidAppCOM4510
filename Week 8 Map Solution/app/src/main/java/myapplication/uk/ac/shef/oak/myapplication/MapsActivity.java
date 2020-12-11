@@ -17,10 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.room.Room;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -47,6 +52,8 @@ import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
 import pl.aprilapps.easyphotopicker.EasyImage;
+
+import androidx.lifecycle.ViewModelProvider;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -78,18 +85,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return mMap;
     }
 
+    LiveData<Image> stringToDisplay;
+    private MyViewModel myViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setActivity(this);
+
+        // Instantiate variables
         barometer = new Barometer(this);
         accelerometer = new Accelerometer(this, barometer);
         ambientTemp = new Temperature(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Initialise Database
+//        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+//                AppDatabase.class, "imagedb").build();
+
+        // Get a new or existing ViewModel from the ViewModelProvider.
+//        myViewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+//
+//        myViewModel.getImages().observe(this, new Observer<Image>(){
+//
+//            @Override
+//            public void onChanged(@Nullable final Image newValue) {
+////                TextView tv= findViewById(R.id.textView);
+////                // if database is empty
+////                if (newValue==null)
+////                    tv.setText("click button");
+////                else
+////                    tv.setText(newValue.getNumber()+"");
+//            }});
 
         mButtonStart = (Button) findViewById(R.id.button_start);
         mButtonStart.setOnClickListener(new View.OnClickListener() {

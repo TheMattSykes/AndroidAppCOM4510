@@ -201,6 +201,7 @@ public class CameraActivity extends AppCompatActivity {
      * @param returnedPhotos
      */
     private void onPhotosReturned(List<File> returnedPhotos) {
+        System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
         myPictureList.addAll(getImageElements(returnedPhotos));
         // we tell the adapter that the data is changed and hence the grid needs
         // refreshing

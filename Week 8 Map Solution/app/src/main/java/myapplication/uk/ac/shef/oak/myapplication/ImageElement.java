@@ -12,10 +12,9 @@ class ImageElement {
 
     public ImageElement(int image) {
         this.image = image;
-
     }
 
     public ImageElement(File fileX) {
-        file= fileX;
+        file = fileX;
     }
 }
