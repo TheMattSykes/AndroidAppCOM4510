@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tbutton"
+        android:icon="@drawable/ic_addcircle_white"
+        android:tint="@android:color/white"
+        android:title=""
+        android:onClick="newVisit"
+        app:showAsAction="always"
+        />
+</menu>

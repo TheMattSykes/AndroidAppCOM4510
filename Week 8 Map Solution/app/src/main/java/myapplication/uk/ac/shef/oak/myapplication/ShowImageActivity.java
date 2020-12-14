@@ -21,17 +21,17 @@ public class ShowImageActivity extends AppCompatActivity {
         int position=-1;
         if(b != null) {
             // this is the image position in the itemList
-            position = b.getInt("position");
-            if (position!=-1){
-                ImageView imageView = (ImageView) findViewById(R.id.image);
-                ImageElement element= MyAdapter.getItems().get(position);
-                if (element.image!=-1) {
-                    imageView.setImageResource(element.image);
-                } else if (element.file!=null) {
-                    Bitmap myBitmap = BitmapFactory.decodeFile(element.file.getAbsolutePath());
-                    imageView.setImageBitmap(myBitmap);
-                }
-            }
+//            position = b.getInt("position");
+//            if (position!=-1){
+//                ImageView imageView = (ImageView) findViewById(R.id.image);
+//                Image element= MyAdapter.getItems().get(position);
+//                if (element.image!=-1) {
+//                    imageView.setImageResource(element.image);
+//                } else if (element.file!=null) {
+//                    Bitmap myBitmap = BitmapFactory.decodeFile(element.file.getAbsolutePath());
+//                    imageView.setImageBitmap(myBitmap);
+//                }
+//            }
 
         }
     }
