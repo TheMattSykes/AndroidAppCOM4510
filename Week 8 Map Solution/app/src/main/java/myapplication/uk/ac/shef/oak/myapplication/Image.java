@@ -16,8 +16,11 @@ public class Image {
     @androidx.annotation.NonNull
     public int uid;
 
-    @ColumnInfo(name = "picture", typeAffinity = ColumnInfo.BLOB)
-    public byte[] picture;
+    @ColumnInfo(name = "image")
+    public int image;
+
+    @ColumnInfo(name = "filepath")
+    public String filepath;
 
     @ColumnInfo(name = "title")
     public String title;

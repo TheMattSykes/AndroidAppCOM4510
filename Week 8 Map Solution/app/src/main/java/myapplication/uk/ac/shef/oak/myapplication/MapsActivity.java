@@ -83,9 +83,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return mMap;
     }
 
-    LiveData<Image> stringToDisplay;
-    private MyViewModel myViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         firstStart = true;
@@ -108,20 +105,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 //                AppDatabase.class, "imagedb").build();
 
-        // Get a new or existing ViewModel from the ViewModelProvider.
-//        myViewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
-//
-//        myViewModel.getImages().observe(this, new Observer<Image>(){
-//
-//            @Override
-//            public void onChanged(@Nullable final Image newValue) {
-////                TextView tv= findViewById(R.id.textView);
-////                // if database is empty
-////                if (newValue==null)
-////                    tv.setText("click button");
-////                else
-////                    tv.setText(newValue.getNumber()+"");
-//            }});
+
 
 //        mButtonStart = (Button) findViewById(R.id.button_start);
 //        mButtonStart.setOnClickListener(new View.OnClickListener() {

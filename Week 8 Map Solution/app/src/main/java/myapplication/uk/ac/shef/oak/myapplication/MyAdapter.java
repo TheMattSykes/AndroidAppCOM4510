@@ -18,13 +18,13 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
     static private Context context;
-    private static List<ImageElement> items;
+    private static List<Image> items;
 
-    public MyAdapter(List<ImageElement> items) {
+    public MyAdapter(List<Image> items) {
         this.items = items;
     }
 
-    public MyAdapter(Context cont, List<ImageElement> items) {
+    public MyAdapter(Context cont, List<Image> items) {
         super();
         this.items = items;
         context = cont;
@@ -46,10 +46,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
         //Use the provided View Holder on the onCreateViewHolder method to populate the
         // current row on the RecyclerView
         if (holder!=null && items.get(position)!=null) {
-            if (items.get(position).image!=-1) {
+            if (items.get(position).image !=-1 ) {
                 holder.imageView.setImageResource(items.get(position).image);
-            } else if (items.get(position).file!=null){
-                Bitmap myBitmap = BitmapFactory.decodeFile(items.get(position).file.getAbsolutePath());
+            } else if (items.get(position).filepath!=null){
+                Bitmap myBitmap = BitmapFactory.decodeFile(items.get(position).filepath);
                 holder.imageView.setImageBitmap(myBitmap);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,13 +66,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
 
 
     // convenience method for getting data at click position
-    ImageElement getItem(int id) {
+    Image getItem(int id) {
         return items.get(id);
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setPhotos(List<Image> images) {
+        items = images;
     }
 
     public class View_Holder extends RecyclerView.ViewHolder  {
@@ -87,11 +91,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
 
     }
 
-    public static List<ImageElement> getItems() {
+    public static List<Image> getItems() {
         return items;
     }
 
-    public static void setItems(List<ImageElement> items) {
+    public static void setItems(List<Image> items) {
         MyAdapter.items = items;
     }
 }

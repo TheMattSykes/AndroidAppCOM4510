@@ -16,10 +16,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 //import androidx.core.design.widget.FloatingActionButton;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.widget.GridLayoutManager;
@@ -41,11 +45,15 @@ public class CameraActivity extends AppCompatActivity {
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 2987;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 7829;
     private static final String TAG = "MainActivity";
-    private List<ImageElement> myPictureList = new ArrayList<>();
+    private List<Image> myPictureList = new ArrayList<>();
     private RecyclerView.Adapter  mAdapter;
+    private MyAdapter photoAdapter;
     private RecyclerView mRecyclerView;
 
     private Activity activity;
+
+    LiveData<Image> stringToDisplay;
+    private MyViewModel myViewModel;
 
 
     @Override
@@ -56,14 +64,28 @@ public class CameraActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
 
-        activity= this;
+        activity = this;
+
+
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
+        myViewModel.getImages().observe(this, new Observer<List<Image>>(){
+
+            @Override
+            public void onChanged(@Nullable final List<Image> images) {
+                photoAdapter.setPhotos(images);
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.grid_recycler_view);
+
         // set up the RecyclerView
         int numberOfColumns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        mAdapter = new MyAdapter(myPictureList);
-        mRecyclerView.setAdapter(mAdapter);
+//        mAdapter = new MyAdapter(myPictureList);
+        photoAdapter = new MyAdapter(myPictureList);
+        mRecyclerView.setAdapter(photoAdapter);
 
         initData();
 
@@ -214,8 +236,8 @@ public class CameraActivity extends AppCompatActivity {
      * @param returnedPhotos
      * @return
      */
-    private List<ImageElement> getImageElements(List<File> returnedPhotos) {
-        List<ImageElement> imageElementList= new ArrayList<>();
+    private List<Image> getImageElements(List<File> returnedPhotos) {
+        List<Image> imageElementList= new ArrayList<>();
         for (File file: returnedPhotos){
             ImageElement element= new ImageElement(file);
             imageElementList.add(element);
