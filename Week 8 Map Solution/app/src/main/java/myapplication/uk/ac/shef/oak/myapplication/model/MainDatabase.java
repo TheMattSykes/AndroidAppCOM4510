@@ -9,13 +9,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(
         entities = {
                 VisitData.class,
-                //SensorData.class,
+                SensorData.class,
                 ImageData.class},
         version = 1,
         exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
-    //public abstract SensorDAO sensorDAO();
+    public abstract SensorDAO sensorDAO();
     public abstract ImageDAO imageDAO();
 
     // marking the instance as volatile to ensure atomic access to the variable

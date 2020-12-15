@@ -6,6 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface SensorDAO {
     @Insert
@@ -24,5 +26,5 @@ public interface SensorDAO {
     int howManyElements();
 
     @Query("SELECT * FROM sensorData")
-    LiveData<SensorData> retrieveSensorData();
+    LiveData<List<SensorData>> retrieveSensorData();
 }
