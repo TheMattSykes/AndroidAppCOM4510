@@ -68,13 +68,13 @@ public class CameraActivity extends AppCompatActivity {
         // Get a new or existing ViewModel from the ViewModelProvider.
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
-//        myViewModel.getImages().observe(this, new Observer<List<Image>>(){
-//
-//            @Override
-//            public void onChanged(@Nullable final List<Image> images) {
-//                photoAdapter.setPhotos(images);
-//            }
-//        });
+        myViewModel.getImages().observe(this, new Observer<List<Image>>(){
+
+            @Override
+            public void onChanged(@Nullable final List<Image> images) {
+                photoAdapter.setPhotos(images);
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.grid_recycler_view);
 

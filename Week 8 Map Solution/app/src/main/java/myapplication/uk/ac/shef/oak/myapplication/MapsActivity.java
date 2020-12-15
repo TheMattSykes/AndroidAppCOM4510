@@ -149,7 +149,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         initEasyImage();
 
         int numberOfCameras = Camera.getNumberOfCameras();
-        
+
         if (numberOfCameras > 0) {
             // the floating button that will allow us to get the images from the Gallery
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_map_camera);
@@ -174,26 +174,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Override onCreateOptionsMenu to add a gallery icon to the top menu bar
      * */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.topmenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.topmenu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     /**
      * Override onOptionsItemSelected to allow the change to the gallery view
      * when the button is pressed.
      * */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.tbutton) {
-            // Change to gallery view
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.tbutton) {
+//            // Change to gallery view
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     /**
      * Initialise EasyImage
