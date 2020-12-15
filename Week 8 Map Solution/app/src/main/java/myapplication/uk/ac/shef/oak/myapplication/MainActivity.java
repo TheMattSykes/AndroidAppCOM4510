@@ -27,22 +27,37 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.ui.home.VisitsViewModel;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class MainActivity extends AppCompatActivity {
-//    private Activity activity;
+    private Activity activity;
+
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private List<VisitElement> visitsList = new ArrayList<>();
+
+    private VisitsViewModel visitsViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activity = this;
+
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -51,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+//
+//        initData();
+
+//        visitsAdapter = new VisitsAdapter(visitsList);
+//        mRecyclerView.setAdapter(visitsAdapter);
+
     }
 
     public boolean newVisit(MenuItem item) {

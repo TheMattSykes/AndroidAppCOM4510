@@ -63,9 +63,7 @@ public class CameraActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-
         activity = this;
-
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
