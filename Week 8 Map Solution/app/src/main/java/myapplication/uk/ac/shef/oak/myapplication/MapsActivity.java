@@ -48,13 +48,16 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -204,6 +207,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setCopyTakenPhotosToPublicGalleryAppFolder(true)
                 .setCopyPickedImagesToPublicGalleryAppFolder(false)
                 .setAllowMultiplePickInGallery(true);
+    }
+
+    /**
+     * add the selected images to the grid
+     * @param returnedPhotos
+     */
+    private void onPhotosReturned(List<File> returnedPhotos) {
+//        System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
+//        myPictureList.addAll(getImageElements(returnedPhotos));
+//        // we tell the adapter that the data is changed and hence the grid needs
+//        // refreshing
+//        mAdapter.notifyDataSetChanged();
+//        mRecyclerView.scrollToPosition(returnedPhotos.size() - 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onImagesPicked(List<File> imageFiles, EasyImage.ImageSource source, int type) {
+                onPhotosReturned(imageFiles);
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+
+            }
+        });
     }
 
     /**
