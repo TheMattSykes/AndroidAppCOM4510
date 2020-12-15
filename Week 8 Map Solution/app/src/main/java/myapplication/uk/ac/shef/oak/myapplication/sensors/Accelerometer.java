@@ -116,7 +116,7 @@ public class Accelerometer {
                 // probably already unregistered
             }
         }
-        // remember to stop the barometer
+        // remember to stop the barometer, too
         barometer.stopBarometer();
     }
 

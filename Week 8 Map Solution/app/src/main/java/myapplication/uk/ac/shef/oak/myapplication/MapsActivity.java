@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.Camera;
 import android.location.Location;
 import android.os.Build;
@@ -34,21 +33,15 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
@@ -69,8 +62,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //private MapView mapView;
     private Button mButtonEnd;
     private PendingIntent mLocationPendingIntent;
-    protected static ArrayList<LatLng> pathPoints = new ArrayList<LatLng>();
-    Polyline path;
     private Barometer barometer;
     private Accelerometer accelerometer;
     private Temperature ambientTemp;
@@ -134,6 +125,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 accelerometer.stopAccelerometer();
                 ambientTemp.stopTemperatureSensor();
                 mButtonEnd.setEnabled(false);
+                MainActivity.pathPoints.clear();
+                // Switch back to the main activity and finishing this one
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+                finish();
             }
         });
         mButtonEnd.setEnabled(true);
@@ -303,22 +299,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-        super.onLocationResult(locationResult);
-        mCurrentLocation = locationResult.getLastLocation();
-        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        Log.i("MAP", "new location " + mCurrentLocation.toString());
-        if (mMap != null) {
-            LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-            pathPoints.add(currentPos);
-            // Clear the map, so the polyline can be drawn again
-            getMap().clear();
-            PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
-            path = MapsActivity.getMap().addPolyline(options);
-            path.setPoints(MapsActivity.pathPoints);
-            // Add a marker to the current position
-            mMap.addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
-        }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 14.0f));
+            super.onLocationResult(locationResult);
+            mCurrentLocation = locationResult.getLastLocation();
+            mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+            Log.i("MAP", "new location " + mCurrentLocation.toString());
         }
     };
 

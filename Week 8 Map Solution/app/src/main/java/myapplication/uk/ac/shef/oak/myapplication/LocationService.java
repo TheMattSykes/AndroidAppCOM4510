@@ -25,7 +25,7 @@ import java.util.Date;
 public class LocationService extends IntentService {
     private Location mCurrentLocation;
     private String mLastUpdateTime;
-    Polyline path;
+    private Polyline path;
 
     public LocationService(String name) {
         super(name);
@@ -52,6 +52,8 @@ public class LocationService extends IntentService {
                     mCurrentLocation = location;
                     mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
                     Log.i("MAP", "new location " + mCurrentLocation.toString());
+                    LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+                    MainActivity.pathPoints.add(currentPos);
                     // check if the activity has not been closed in the meantime
                     if (MapsActivity.getActivity()!=null)
                         // any modification of the user interface must be done on the UI Thread. The Intent Service is running
@@ -61,12 +63,11 @@ public class LocationService extends IntentService {
                                 try {
                                     LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                                     if (MapsActivity.getMap() != null) {
-                                        MapsActivity.pathPoints.add(currentPos);
                                         // Clearing the map, so the polyline can be drawn again
                                         MapsActivity.getMap().clear();
                                         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
                                         path = MapsActivity.getMap().addPolyline(options);
-                                        path.setPoints(MapsActivity.pathPoints);
+                                        path.setPoints(MainActivity.pathPoints);
                                         // Adding a marker for the current position
                                         MapsActivity.getMap().addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
                                     }
