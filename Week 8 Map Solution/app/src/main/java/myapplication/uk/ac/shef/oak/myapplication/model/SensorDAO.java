@@ -1,8 +1,28 @@
-/*
- * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
- */
-
 package myapplication.uk.ac.shef.oak.myapplication.model;
 
-public class SensorDAO {
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+
+@Dao
+public interface SensorDAO {
+    @Insert
+    void insertAll(SensorData... sensorData);
+
+    @Insert
+    void insert(SensorData sensorData);
+
+    @Delete
+    void delete(SensorData sensorData);
+
+    @Delete
+    void deleteAll(SensorData... sensorData);
+
+    @Query("SELECT COUNT(*) FROM sensorData")
+    int howManyElements();
+
+    @Query("SELECT * FROM sensorData")
+    LiveData<SensorData> retrieveSensorData();
 }

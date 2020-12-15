@@ -1,8 +1,28 @@
-/*
- * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
- */
-
 package myapplication.uk.ac.shef.oak.myapplication.model;
 
-public class VisitDAO {
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+
+@Dao
+public interface VisitDAO {
+    @Insert
+    void insertAll(VisitData... visitData);
+
+    @Insert
+    void insert(VisitData visitData);
+
+    @Delete
+    void delete(VisitData visitData);
+
+    @Delete
+    void deleteAll(VisitData... visitData);
+
+    @Query("SELECT COUNT(*) FROM visitData")
+    int howManyElements();
+
+    @Query("SELECT * FROM visitData")
+    LiveData<VisitData> retrieveVisits();
 }
