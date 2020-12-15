@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
 
-@Entity(indices = {@Index(value = {"title"})})
+@Entity(indices = {@Index(value = {"id"})})
 public class SensorData {
     @PrimaryKey(autoGenerate = true)
     @androidx.annotation.NonNull
