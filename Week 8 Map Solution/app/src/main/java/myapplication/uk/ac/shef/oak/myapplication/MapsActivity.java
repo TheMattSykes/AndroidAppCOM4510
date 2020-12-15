@@ -59,7 +59,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 import androidx.lifecycle.ViewModelProvider;
 
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.hardware.Camera;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -148,14 +148,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initEasyImage();
 
-        // the floating button that will allow us to get the images from the Gallery
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_map_camera);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EasyImage.openCamera(getActivity(), 0);
-            }
-        });
+        int numberOfCameras = Camera.getNumberOfCameras();
+        
+        if (numberOfCameras > 0) {
+            // the floating button that will allow us to get the images from the Gallery
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_map_camera);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EasyImage.openCamera(getActivity(), 0);
+                }
+            });
+        }
 
         // the floating button that will allow us to get the images from the Gallery
         FloatingActionButton fabGallery = (FloatingActionButton) findViewById(R.id.fab_map_gallery);
