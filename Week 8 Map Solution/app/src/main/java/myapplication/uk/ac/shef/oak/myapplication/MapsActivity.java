@@ -8,49 +8,41 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.hardware.Camera;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.room.Room;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,10 +51,6 @@ import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
-
-import androidx.lifecycle.ViewModelProvider;
-
-import android.hardware.Camera;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -76,9 +64,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient mFusedLocationClient;
     //private MapView mapView;
     private Button mButtonEnd;
-    //private PendingIntent mLocationPendingIntent;
-    protected static ArrayList<LatLng> pathPoints = new ArrayList<LatLng>();
-    Polyline path;
+    private PendingIntent mLocationPendingIntent;
     private Barometer barometer;
     private Accelerometer accelerometer;
     private Temperature ambientTemp;
@@ -142,6 +128,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 accelerometer.stopAccelerometer();
                 ambientTemp.stopTemperatureSensor();
                 mButtonEnd.setEnabled(false);
+                MainActivity.pathPoints.clear();
+                // Switch back to the main activity and finishing this one
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+                finish();
             }
         });
         mButtonEnd.setEnabled(true);
@@ -150,6 +141,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         checkPermissions(getApplicationContext());
 
         initEasyImage();
+
+        initLocations();
 
         int numberOfCameras = Camera.getNumberOfCameras();
 
@@ -278,32 +271,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Starting location updates
      */
-    private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+    private void startLocationUpdates(Context context) {
+        Intent intent = new Intent(context, LocationService.class);
+        mLocationPendingIntent = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Task<Void> locationTask = mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationPendingIntent);
+            if (locationTask != null) {
+                locationTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (e instanceof ApiException) {
+                            Log.w("MapsActivity", ((ApiException) e).getStatusMessage());
+                        } else {
+                            Log.w("MapsActivity", e.getMessage());
+                        }
+                    }
+                });
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+                locationTask.addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("MapsActivity", "restarting gps successful!");
+                    }
+                });
 
-            } else {
 
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        ACCESS_FINE_LOCATION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
-
-            return;
         }
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null /* Looper */);
     }
 
     /**
@@ -311,6 +306,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void stopLocationUpdates() {
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        mLocationPendingIntent.cancel();
     }
 
     /**
@@ -327,7 +323,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Starting location updates and ambient temperature/barometric pressure sensing
         if (firstStart) {
-            startLocationUpdates();
+            startLocationUpdates(getApplicationContext());
             // Accelerometer also starts barometric pressure sensing (when movement is detected)
             accelerometer.startAccelerometerRecording();
             ambientTemp.startSensingTemperature();
@@ -346,18 +342,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mCurrentLocation = locationResult.getLastLocation();
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
             Log.i("MAP", "new location " + mCurrentLocation.toString());
-            if (mMap != null) {
-                LatLng currentPos = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-                pathPoints.add(currentPos);
-                // Clear the map, so the polyline can be drawn again
-                getMap().clear();
-                PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE);
-                path = MapsActivity.getMap().addPolyline(options);
-                path.setPoints(MapsActivity.pathPoints);
-                // Add a marker to the current position
-                mMap.addMarker(new MarkerOptions().position(currentPos).title(mLastUpdateTime));
-            }
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 14.0f));
         }
     };
 
@@ -402,7 +386,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-
     }
 
     public boolean addPhoto(MenuItem item) {
