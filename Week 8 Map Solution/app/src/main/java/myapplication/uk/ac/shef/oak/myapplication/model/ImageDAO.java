@@ -20,9 +20,19 @@ public interface ImageDAO {
     @Delete
     void deleteAll(ImageData... imageData);
 
+    // Retrieve a count of all images
     @Query("SELECT COUNT(*) FROM imageData")
     int howManyElements();
 
+    // Retrieve all of the images
     @Query("SELECT * FROM imageData")
-    LiveData<ImageData> retrieveImages();
+    LiveData<ImageData> retrieveAllImages();
+
+    // Retrieve the images assigned to a specific visit
+    @Query("SELECT * FROM imageData WHERE visitId = :visitId")
+    LiveData<ImageData> retrieveVisitImages(int visitId);
+
+    // Retrieve images whose information are like a search query
+    @Query("SELECT * FROM imageData WHERE title LIKE :query OR description LIKE :query")
+    LiveData<ImageData> retrieveImageSearch(String query);
 }

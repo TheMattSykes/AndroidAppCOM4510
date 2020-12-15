@@ -1,5 +1,6 @@
 package myapplication.uk.ac.shef.oak.myapplication.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -7,11 +8,13 @@ import androidx.room.PrimaryKey;
 import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
-@Entity(indices = {@Index(value = {"title"})})
+@Entity(tableName = "visits")
 public class VisitData {
     @PrimaryKey(autoGenerate = true)
     @androidx.annotation.NonNull
     private int id=0;
+
+    @ColumnInfo(name = "title")
     private String title;
 
     public VisitData(String title) {
