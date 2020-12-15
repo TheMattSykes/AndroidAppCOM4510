@@ -4,5 +4,5 @@
 
 package myapplication.uk.ac.shef.oak.myapplication.model;
 
-public class PhotoData {
+public class SensorData {
 }
