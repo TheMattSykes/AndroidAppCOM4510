@@ -75,7 +75,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
     }
 
     // convenience method for getting data at click position
-    ImageData getItem(int id){
+    public ImageData getItem(int id){
         return items.get(id);
     }
 

@@ -37,4 +37,8 @@ public interface ImageDAO {
     // Retrieve images whose information are like a search query
     @Query("SELECT * FROM images WHERE title LIKE :query OR description LIKE :query")
     LiveData<List<ImageData>> retrieveImageSearch(String query);
+
+    // Retrieve image by id
+    @Query("SELECT * FROM images WHERE id = :id")
+    ImageData retrieveImageByID(int id);
 }
