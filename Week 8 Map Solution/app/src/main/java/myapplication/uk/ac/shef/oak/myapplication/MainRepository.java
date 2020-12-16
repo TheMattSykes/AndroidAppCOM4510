@@ -1,6 +1,8 @@
 package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -54,5 +56,67 @@ public class MainRepository extends ViewModel {
         return visitDBDao.retrieveVisits();
     }
 
+    // Image Insert functions
+    public void saveImage(String title, String description, int visitId,
+                          Bitmap image, String geolocation, String time){
+        new insertImageAsyncTask(imageDBDao).execute(
+                new ImageData(title, description, visitId, image, geolocation, time));
+    }
 
+    private static class insertImageAsyncTask extends AsyncTask<ImageData, Void, Void> {
+        private ImageDAO mAsyncTaskDao;
+        private LiveData<ImageData> imageData;
+
+        insertImageAsyncTask(ImageDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(ImageData... imageData) {
+            mAsyncTaskDao.insert(imageData[0]);
+            return null;
+        }
+    }
+
+    // Visit Insert functions
+    public void saveVisit(String title, String time){
+        new insertVisitAsyncTask(visitDBDao).execute(new VisitData(title, time));
+    }
+
+    private static class insertVisitAsyncTask extends AsyncTask<VisitData, Void, Void> {
+        private VisitDAO mAsyncTaskDao;
+        private LiveData<VisitData> visitData;
+
+        insertVisitAsyncTask(VisitDAO dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(VisitData... visitData) {
+            mAsyncTaskDao.insert(visitData[0]);
+            return null;
+        }
+    }
+
+    // Sensor Insert functions
+    public void saveSensor(int visitId, String geolocation, String barometer,
+                           String temperature, String time) {
+        new insertSensorAsyncTask(sensorDBDao).execute(
+                new SensorData(visitId, geolocation, barometer, temperature, time));
+    }
+
+    private static class insertSensorAsyncTask extends AsyncTask<SensorData, Void, Void> {
+        private SensorDAO mAsyncTaskDao;
+        private LiveData<SensorData> sensorData;
+
+        insertSensorAsyncTask(SensorDAO dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(SensorData... sensorData) {
+            mAsyncTaskDao.insert(sensorData[0]);
+            return null;
+        }
+    }
 }

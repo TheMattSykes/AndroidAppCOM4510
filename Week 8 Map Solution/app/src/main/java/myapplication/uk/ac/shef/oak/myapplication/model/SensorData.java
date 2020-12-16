@@ -41,10 +41,16 @@ public class SensorData {
 
     @androidx.annotation.NonNull
     public int getId() {
-        return id;
+        return this.id;
     }
     public void setId(@androidx.annotation.NonNull int id) {
         this.id = id;
+    }
+    public int getVisitId() {
+        return this.visitId;
+    }
+    public void setVisitId(int visitId) {
+        this.visitId = visitId;
     }
     public String getGeolocation(){
         return this.geolocation;
@@ -63,5 +69,11 @@ public class SensorData {
     }
     public void setTemperature(String temperature){
         this.temperature = temperature;
+    }
+    public String getTime() {
+        return this.time;
+    }
+    public void setTime(String time){
+        this.time = time;
     }
 }
