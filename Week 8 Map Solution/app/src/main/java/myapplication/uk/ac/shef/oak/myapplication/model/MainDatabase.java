@@ -22,7 +22,7 @@ import myapplication.uk.ac.shef.oak.myapplication.Visit;
                 VisitData.class,
                 SensorData.class,
                 ImageData.class},
-        version = 9,
+        version = 10,
         exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
