@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_visits" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="myapplication.uk.ac.shef.oak.myapplication.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_album"
+        android:name="myapplication.uk.ac.shef.oak.myapplication.ui.dashboard.AlbumFragment"
+        android:label="Album"
+        tools:layout="@layout/fragment_album" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="myapplication.uk.ac.shef.oak.myapplication.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="Help"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

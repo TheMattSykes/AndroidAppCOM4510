@@ -32,7 +32,7 @@ public class MyViewModel extends AndroidViewModel {
      * getter for the live data
      * @return
      */
-    LiveData<List<Image>> getImages() {
+    public LiveData<List<Image>> getImages() {
         if (images == null) {
             images = new MutableLiveData<List<Image>>();
         }

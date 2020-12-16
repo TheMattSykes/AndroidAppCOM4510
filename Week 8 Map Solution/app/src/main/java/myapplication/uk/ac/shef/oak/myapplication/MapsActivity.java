@@ -43,6 +43,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +70,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Accelerometer accelerometer;
     private Temperature ambientTemp;
     private boolean firstStart;
+
+    private List<Image> returnedPictureList = new ArrayList<>();
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -168,30 +171,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Override onCreateOptionsMenu to add a gallery icon to the top menu bar
-     * */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.topmenu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-    /**
-     * Override onOptionsItemSelected to allow the change to the gallery view
-     * when the button is pressed.
-     * */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.tbutton) {
-//            // Change to gallery view
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    /**
      * Initialise EasyImage
      */
     private void initEasyImage() {
@@ -207,8 +186,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param returnedPhotos
      */
     private void onPhotosReturned(List<File> returnedPhotos) {
-//        System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
-//        myPictureList.addAll(getImageElements(returnedPhotos));
+        System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
+        returnedPictureList.addAll(getImageElements(returnedPhotos));
 //        // we tell the adapter that the data is changed and hence the grid needs
 //        // refreshing
 //        mAdapter.notifyDataSetChanged();
@@ -236,6 +215,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+    }
+
+    /**
+     * given a list of photos, it creates a list of images
+     * @param returnedPhotos
+     * @return
+     */
+    private List<Image> getImageElements(List<File> returnedPhotos) {
+        List<Image> imageElementList= new ArrayList<>();
+        for (File file: returnedPhotos){
+//            Image element = new Image(file);
+//            imageElementList.add(element);
+        }
+        return imageElementList;
     }
 
     /**

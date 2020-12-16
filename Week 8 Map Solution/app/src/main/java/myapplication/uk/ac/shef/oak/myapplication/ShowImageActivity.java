@@ -4,10 +4,15 @@
 
 package myapplication.uk.ac.shef.oak.myapplication;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 public class ShowImageActivity extends AppCompatActivity {
@@ -21,7 +26,7 @@ public class ShowImageActivity extends AppCompatActivity {
         int position=-1;
         if(b != null) {
             // this is the image position in the itemList
-//            position = b.getInt("position");
+            position = b.getInt("position");
 //            if (position!=-1){
 //                ImageView imageView = (ImageView) findViewById(R.id.image);
 //                Image element= MyAdapter.getItems().get(position);
@@ -34,6 +39,23 @@ public class ShowImageActivity extends AppCompatActivity {
 //            }
 
         }
+    }
+
+    /**
+     * Override onCreateOptionsMenu to add an add icon to the top menu bar
+     * */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topmenushowimage, menu);
+        return true;
+    }
+
+    public boolean editMetadata(MenuItem item) {
+        Intent intent = new Intent(ShowImageActivity.this, CameraActivity.class);
+        startActivity(intent);
+
+        return true;
     }
 
 }
