@@ -31,19 +31,23 @@ public class ImageData {
     @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
     public byte[] image;
 
-    @ColumnInfo(name = "geolocation")
-    private String geolocation;
+    @ColumnInfo(name = "latitude")
+    private double latitude;
+
+    @ColumnInfo(name = "longitude")
+    private double longitude;
 
     @ColumnInfo(name = "time")
     private String time;
 
     public ImageData(String title, String description, int visitId,
-                     byte[] image, String geolocation, String time) {
+                     byte[] image, double latitude, double longitude, String time) {
         this.title = title;
         this.description = description;
         this.visitId = visitId;
         this.image = image;
-        this.geolocation = geolocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.time = time;
     }
 
@@ -51,47 +55,68 @@ public class ImageData {
     public int getId() {
         return id;
     }
+
     public void setId(@androidx.annotation.NonNull int id) {
         this.id = id;
     }
+
     public String getTitle(){
         return title;
     }
+
     public void setTitle(String title){
         this.title = title;
     }
+
     public String getDescription(){
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public int getVisitId() {
         return visitId;
     }
+
     public void setVisitId(int visitId) {
         this.visitId = visitId;
     }
+
     public Bitmap getImage() {
         byte[] image = this.image;
         Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
         return bmp;
     }
+
     public void setImage(Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         this.image = byteArray;
     }
-    public String getGeolocation() {
-        return this.geolocation;
+
+    public double getLatitude() {
+        return this.latitude;
     }
-    public void setGeolocation(String geolocation){
-        this.geolocation = geolocation;
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
+
+    public double getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(double latitude) {
+        this.longitude = longitude;
+    }
+
     public String getTime(){
         return this.time;
     }
+
     public void setTime(String time){
         this.time = time;
     }

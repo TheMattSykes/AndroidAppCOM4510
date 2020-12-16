@@ -34,6 +34,11 @@ public class MyRepository extends ViewModel {
         return mDBDao.retrieveAllImages();
     }
 
+
+    public void insertImage(ImageData image) {
+        mDBDao.insert(image);
+    }
+
     private static class insertAsyncTask extends AsyncTask<Image, Void, Void> {
         private ImageDao mAsyncTaskDao;
         private LiveData<Image> images;

@@ -14,11 +14,12 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.Image;
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class MyViewModel extends AndroidViewModel {
     private final MyRepository mRepository;
 
-    LiveData<List<Image>> images;
+    LiveData<List<ImageData>> images;
 
     public MyViewModel (Application application) {
         super(application);
@@ -32,10 +33,14 @@ public class MyViewModel extends AndroidViewModel {
      * getter for the live data
      * @return
      */
-    public LiveData<List<Image>> getImages() {
+    public LiveData<List<ImageData>> getImages() {
         if (images == null) {
-            images = new MutableLiveData<List<Image>>();
+            images = new MutableLiveData<List<ImageData>>();
         }
         return images;
+    }
+
+    public void insert(ImageData image) {
+        mRepository.insertImage(image);
     }
 }

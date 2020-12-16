@@ -13,10 +13,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,12 +46,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
@@ -70,6 +81,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Accelerometer accelerometer;
     private Temperature ambientTemp;
     private boolean firstStart;
+
+    private LocationManager locManager;
+
+    private MyViewModel photoViewModel;
 
     private List<Image> returnedPictureList = new ArrayList<>();
 
@@ -97,6 +112,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         accelerometer = new Accelerometer(this, barometer);
         ambientTemp = new Temperature(this);
 
+//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -106,7 +124,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Initialise Database
 //        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 //                AppDatabase.class, "imagedb").build();
-
 
 
 //        mButtonStart = (Button) findViewById(R.id.button_start);
@@ -143,6 +160,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // required by Android 6.0 +
         checkPermissions(getApplicationContext());
 
+        photoViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
         initEasyImage();
 
         initLocations();
@@ -175,19 +194,58 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void initEasyImage() {
         EasyImage.configuration(this)
-                .setImagesFolderName("EasyImage sample")
+                .setImagesFolderName("RouteImages")
                 .setCopyTakenPhotosToPublicGalleryAppFolder(true)
                 .setCopyPickedImagesToPublicGalleryAppFolder(false)
                 .setAllowMultiplePickInGallery(true);
     }
 
     /**
-     * add the selected images to the grid
+     * Add the selected images to the database so that they can be shown on the album grid
      * @param returnedPhotos
      */
     private void onPhotosReturned(List<File> returnedPhotos) {
         System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
         returnedPictureList.addAll(getImageElements(returnedPhotos));
+
+        if (returnedPhotos != null) {
+            for (File file : returnedPhotos) {
+
+                /// Get file location
+
+                String loc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/RouteImages/" + file.getName();
+
+                /// Convert file to Bitmap
+
+                BitmapFactory.Options option = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(loc, option);
+
+                /// Convert Bitmap to Byte Array
+
+                int size = bitmap.getRowBytes() * bitmap.getHeight();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                bitmap.recycle();
+
+                Calendar calendar = Calendar.getInstance();
+                Date date = calendar.getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
+                String dateString = dateFormat.format(date);
+
+                Location location = mCurrentLocation;
+
+                double lat = mCurrentLocation.getLatitude();
+                double lon = mCurrentLocation.getLongitude();
+
+
+                ImageData imd = new ImageData("Image Title", "Image description", 0, bytes, lat, lon, dateString);
+
+                photoViewModel.insert(imd);
+            }
+        }
+
 //        // we tell the adapter that the data is changed and hence the grid needs
 //        // refreshing
 //        mAdapter.notifyDataSetChanged();

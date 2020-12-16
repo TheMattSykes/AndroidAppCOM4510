@@ -22,7 +22,7 @@ import myapplication.uk.ac.shef.oak.myapplication.Visit;
                 VisitData.class,
                 SensorData.class,
                 ImageData.class},
-        version = 8,
+        version = 9,
         exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
@@ -72,9 +72,9 @@ public abstract class MainDatabase extends RoomDatabase {
     };
 
     private static String[] initImages = {
-            "joe1|image of joe1|0|placeholder geo|placeholder time",
-            "joe2|image of joe2|1|placeholder geo|placeholder time",
-            "joe3|image of joe3|2|placeholder geo|placeholder time"
+            "joe1|image of joe1|0|0.0|0.0|placeholder time",
+            "joe2|image of joe2|1|0.0|0.0|placeholder time",
+            "joe3|image of joe3|2|0.0|0.0|placeholder time"
     };
 
     private static void addImages(Context ctx) {
@@ -86,7 +86,7 @@ public abstract class MainDatabase extends RoomDatabase {
         };
         for(int i = 0; i < initImages.length; i++){
             String[] ss = initImages[i].split("\\|");
-            ImageData image = new ImageData(ss[0], ss[1], Integer.parseInt(ss[2]), null, ss[3], ss[4]);
+            ImageData image = new ImageData(ss[0], ss[1], Integer.parseInt(ss[2]), null, Double.parseDouble(ss[3]), Double.parseDouble(ss[4]), ss[5]);
             image.setImage(initImagesBitmap[i]);
             imageList.add(image);
         }
