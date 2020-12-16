@@ -17,6 +17,9 @@ import java.util.concurrent.Executors;
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.Visit;
 
+/**
+ * Main Database
+ */
 @Database(
         entities = {
                 VisitData.class,
@@ -30,6 +33,9 @@ public abstract class MainDatabase extends RoomDatabase {
     public abstract ImageDAO imageDAO();
     private static Context ctx;
 
+    /**
+     * Constructor
+     */
     // marking the instance as volatile to ensure atomic access to the variable
     private static volatile MainDatabase INSTANCE;
     public static MainDatabase getDatabase(final Context context) {
@@ -49,6 +55,7 @@ public abstract class MainDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
@@ -78,12 +85,19 @@ public abstract class MainDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Seed data
+     */
     private static String[] initImages = {
             "joe1|image of joe1|0|0.0|0.0|placeholder time",
             "joe2|image of joe2|1|0.0|0.0|placeholder time",
             "joe3|image of joe3|2|0.0|0.0|placeholder time"
     };
 
+    /**
+     * Add images to the database from a context parameter
+     * @param ctx
+     */
     private static void addImages(Context ctx) {
         List<ImageData> imageList = new ArrayList<ImageData>();
         Bitmap[] initImagesBitmap = {
@@ -101,11 +115,19 @@ public abstract class MainDatabase extends RoomDatabase {
         Log.i("Image Sensor", "image list seed data input");
     }
 
+    /**
+     * Add placeholders
+     */
     private static String[] initVisits = {
             "route 1|placeholder time",
             "route 2|placeholder time",
             "route 3|placeholder time"
     };
+
+    /**
+     * Add a new list of visits to the database
+     * @param ctx
+     */
     private static void addVisits(Context ctx){
         List<VisitData> visitList = new ArrayList<VisitData>();
         for(String s : initVisits) {
@@ -116,11 +138,19 @@ public abstract class MainDatabase extends RoomDatabase {
         Log.i("Visit Sensor", "visit list seed data input");
     }
 
+    /**
+     * Initialise sensors with default data
+     */
     private static String[] initSensors = {
             "0|placeholder geo|placeholder baro|placeholder temp|placeholder time",
             "1|placeholder geo|placeholder baro|placeholder temp|placeholder time",
             "2|placeholder geo|placeholder baro|placeholder temp|placeholder time"
     };
+
+    /**
+     * Add new sensors
+     * @param ctx
+     */
     private static void addSensors(Context ctx){
         List<SensorData> sensorList = new ArrayList<SensorData>();
         for(String s : initSensors) {
@@ -131,6 +161,11 @@ public abstract class MainDatabase extends RoomDatabase {
         Log.i("Seeding Sensor", "sensor list seed data input");
     }
 
+    /**
+     * Check database
+     * @param ctx
+     * @return
+     */
     private static String checkContents(Context ctx){
         int images = getDatabase(ctx).imageDAO().howManyElements();
         int sensors = getDatabase(ctx).sensorDAO().howManyElements();

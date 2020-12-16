@@ -10,6 +10,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * Image Entity
+ */
 @Entity(tableName = "images")
 public class Image {
     @PrimaryKey(autoGenerate = true)

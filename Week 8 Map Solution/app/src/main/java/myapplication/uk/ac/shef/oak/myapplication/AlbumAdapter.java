@@ -18,10 +18,16 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.activities.ShowImageActivity;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
+/**
+ * Recycler View adapter for use in the Album Fragment
+ */
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder> {
     static private Context context;
     private static List<ImageData> items;
 
+    /**
+     * View holder for image in the recycler view grid
+     */
     public class View_Holder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
@@ -31,6 +37,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
         }
     }
 
+    /**
+     * Constructors
+     * @param items
+     */
     public AlbumAdapter(List<ImageData> items){
         this.items = items;
     }
@@ -41,6 +51,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
         context = cont;
     }
 
+    /**
+     * Initialise view holder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public View_Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialise the View Holder
@@ -74,24 +90,45 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
         //animate(holder);
     }
 
+    /**
+     * Get image id
+     * @param id
+     * @return
+     */
     // convenience method for getting data at click position
     ImageData getItem(int id){
         return items.get(id);
     }
 
+    /**
+     * Get number of items
+     * @return
+     */
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    /**
+     * Set image to add
+     * @param images
+     */
     public void setImages(List<ImageData> images){
         items = images;
     }
 
+    /**
+     * Get the list of images
+     * @return
+     */
     public static List<ImageData> getItems() {
         return items;
     }
 
+    /**
+     * Set a list of images to add
+     * @param items
+     */
     public static void setItems(List<ImageData> items) {
         AlbumAdapter.items = items;
     }

@@ -12,7 +12,9 @@ import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-
+/**
+ * Accelerometer
+ */
 public class Accelerometer {
     private static final String TAG = Accelerometer.class.getSimpleName();
     private SensorEventListener mAccelerationListener = null;

@@ -37,6 +37,10 @@ import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
+/**
+ * VisitsFragment
+ * Used to display a list of visits the user has created as well as a button to create a new visit.
+ */
 public class VisitsFragment extends Fragment {
 
     private Activity activity;
@@ -60,13 +64,6 @@ public class VisitsFragment extends Fragment {
         visitsViewModel =
                 ViewModelProviders.of(this).get(VisitsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_visits, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        visitsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         visitsViewModel = new ViewModelProvider(this).get(VisitsViewModel.class);
 
@@ -101,6 +98,10 @@ public class VisitsFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * initData
+     * Add list of seed temporary data to the list.
+     */
     private void initData() {
 //        visitsList.add(new VisitData("TEST VISIT A", null));
 //        visitsList.add(new VisitData("TEST VISIT B", null));

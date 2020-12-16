@@ -20,6 +20,11 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
+/**
+ * NewVisitViewModel
+ * ViewModel for managing new visits
+ * Adds new visit to the database
+ */
 public class NewVisitViewModel extends AndroidViewModel {
     private final MainRepository mRepository;
 
@@ -44,6 +49,10 @@ public class NewVisitViewModel extends AndroidViewModel {
         return visits;
     }
 
+    /**
+     * Insert new visit into the database
+     * @param visit
+     */
     public void insert(VisitData visit) {
         mRepository.saveVisit(visit);
     }

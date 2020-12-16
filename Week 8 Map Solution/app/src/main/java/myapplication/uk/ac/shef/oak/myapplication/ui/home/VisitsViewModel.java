@@ -12,6 +12,9 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.MainRepository;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
+/**
+ * ViewModel for managing the recycler and database calls for the ViewFragment
+ */
 public class VisitsViewModel extends AndroidViewModel {
     private final MainRepository mainRepository;
 

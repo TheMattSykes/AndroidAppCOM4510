@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class HelpViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public HelpViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("Press the + button in the title bar on the visits page to start a new visit. " +
+                "Click on either of the yellow floating buttons to add a new photo to that visit and view them on the album page.");
     }
 
     public LiveData<String> getText() {

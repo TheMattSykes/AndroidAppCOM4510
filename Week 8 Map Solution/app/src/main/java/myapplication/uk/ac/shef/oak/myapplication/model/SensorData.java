@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey;
 import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
-
+/**
+ * Entity for Sensors
+ */
 @Entity(tableName = "sensors")
 public class SensorData {
     @PrimaryKey(autoGenerate = true)

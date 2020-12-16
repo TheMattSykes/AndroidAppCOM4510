@@ -28,7 +28,15 @@ import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
 import myapplication.uk.ac.shef.oak.myapplication.ui.home.VisitsViewModel;
 
+/**
+ * MainActivity
+ * Activity managing the three fragments Visits, Album and Help
+ *
+ * @Extends AppCompatActivity
+ */
 public class MainActivity extends AppCompatActivity {
+    /// Attribute Declarations
+
     private Activity activity;
 
     private RecyclerView.Adapter mAdapter;
@@ -39,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<LatLng> pathPoints = new ArrayList<>();
     private Button mButtonResume;
 
-
+    /**
+     * Set view and initialise variables
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +84,6 @@ public class MainActivity extends AppCompatActivity {
         // Set resume button visible if there is an unfinished path present
         if (pathPoints.size() > 0)
             mButtonResume.setVisibility(View.VISIBLE);
-//
-//        initData();
-
-//        visitsAdapter = new VisitsAdapter(visitsList);
-//        mRecyclerView.setAdapter(visitsAdapter);
 
     }
 
@@ -92,14 +98,23 @@ public class MainActivity extends AppCompatActivity {
             mButtonResume.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * When plus button clicked switch to creating a new visit
+     * @param item
+     * @return
+     */
     public boolean newVisit(MenuItem item) {
         Intent intent = new Intent(MainActivity.this, NewVisit.class);
         startActivity(intent);
 
         return true;
     }
-//
-//    public Activity getActivity() {
-//        return activity;
-//    }
+
+    /**
+     * Return the current activity
+     * @return
+     */
+    public Activity getActivity() {
+        return activity;
+    }
 }

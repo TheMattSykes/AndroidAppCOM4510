@@ -25,6 +25,9 @@ import java.util.Date;
 import myapplication.uk.ac.shef.oak.myapplication.activities.MainActivity;
 import myapplication.uk.ac.shef.oak.myapplication.activities.MapsActivity;
 
+/**
+ * LocationService for map use
+ */
 public class LocationService extends IntentService {
     private Location mCurrentLocation;
     private String mLastUpdateTime;

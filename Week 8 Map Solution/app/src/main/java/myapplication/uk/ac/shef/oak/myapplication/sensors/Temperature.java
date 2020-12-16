@@ -12,7 +12,9 @@ import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-
+/**
+ * Temperature
+ */
 public class Temperature {
     private static final String TAG = Temperature.class.getSimpleName();
     private long mSamplingRateInMSecs;

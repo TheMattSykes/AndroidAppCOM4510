@@ -15,6 +15,10 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
+/**
+ * ViewModel for the Album Fragment
+ * Gets a list of images
+ */
 public class AlbumViewModel extends AndroidViewModel {
     private final MainRepository mainRepository;
 

@@ -16,6 +16,9 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
+/**
+ * View Model for getting images from the database
+ */
 public class MyViewModel extends AndroidViewModel {
     private final MainRepository mRepository;
 

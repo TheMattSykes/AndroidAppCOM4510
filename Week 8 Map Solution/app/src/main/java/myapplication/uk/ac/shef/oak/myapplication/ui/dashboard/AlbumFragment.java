@@ -31,10 +31,11 @@ import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
-
+/**
+ * AlbumFragment
+ * Lists the pictures taken across all visits in a gallery view.
+ */
 public class AlbumFragment extends Fragment {
-
-    //private AlbumViewModel albumViewModel;
 
     private List<ImageData> myImageList = new ArrayList<>();
     private RecyclerView.Adapter  mAdapter;
@@ -44,19 +45,17 @@ public class AlbumFragment extends Fragment {
     LiveData<ImageData> stringToDisplay;
     private AlbumViewModel albumViewModel;
 
+    /**
+     * Initialiser: Set up recycler view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        //albumViewModel =
-        //        ViewModelProviders.of(this).get(AlbumViewModel.class);
         View root = inflater.inflate(R.layout.fragment_album, container, false);
-//        final TextView textView = root.findViewById(R.id.text_album);
-//        albumViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         albumViewModel = new ViewModelProvider(this).get(AlbumViewModel.class);

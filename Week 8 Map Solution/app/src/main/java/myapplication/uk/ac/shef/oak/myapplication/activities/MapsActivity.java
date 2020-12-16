@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationManager;
@@ -42,6 +43,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -69,6 +74,13 @@ import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
+/**
+ * MapActivity
+ * Activity managing the Google Maps view and opening the camera/gallery to add photos to the album
+ *
+ * @Extends AppCompatActivity
+ * @Implements OnMapReadyCallback
+ */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 2987;
@@ -90,7 +102,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private MyViewModel photoViewModel;
 
-    private List<Image> returnedPictureList = new ArrayList<>();
+    private List<ImageData> imageList = new ArrayList<>();
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -118,18 +130,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         accelerometer = new Accelerometer(this, barometer);
         ambientTemp = new Temperature(this);
 
-//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-        // Initialise Database
-//        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                AppDatabase.class, "imagedb").build();
 
 
         mButtonEnd = (Button) findViewById(R.id.button_end);
@@ -184,7 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Initialise EasyImage
+     * Initialise EasyImages
      */
     private void initEasyImage() {
         EasyImage.configuration(this)
@@ -195,12 +199,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
+     * Add an image to the map
+     * @param title
+     * @param image
+     */
+    private void addImageMarker(String title, double lat, double lon, Bitmap image) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 10;
+        BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(image);
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(title).icon(bd));
+    }
+
+
+    /**
      * Add the selected images to the database so that they can be shown on the album grid
      * @param returnedPhotos
      */
     private void onPhotosReturned(List<File> returnedPhotos) {
         System.out.println("TEST COMPLETED: onPhotosReturned CALLED HERE!");
-        returnedPictureList.addAll(getImageElements(returnedPhotos));
+//        returnedPictureList.addAll(getImageData(returnedPhotos));
 
         if (returnedPhotos != null) {
             for (File file : returnedPhotos) {
@@ -221,12 +240,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] bytes = stream.toByteArray();
-                bitmap.recycle();
 
                 Calendar calendar = Calendar.getInstance();
                 Date date = calendar.getTime();
                 DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
                 String dateString = dateFormat.format(date);
+
+                /// Get current location
 
                 Location location = mCurrentLocation;
 
@@ -241,18 +261,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lon = 0.0;
                 }
 
+                /// Save image to database and add map marker
+
                 ImageData imd = new ImageData("Image Title", "Image description", 0, bytes, lat, lon, dateString);
+
+                imageList.add(imd);
+
+                addImageMarker("Image Title", lat, lon, bitmap); /// Add to the map
+
+                bitmap.recycle();
 
                 photoViewModel.insert(imd);
             }
         }
-
-//        // we tell the adapter that the data is changed and hence the grid needs
-//        // refreshing
-//        mAdapter.notifyDataSetChanged();
-//        mRecyclerView.scrollToPosition(returnedPhotos.size() - 1);
     }
 
+    /**
+     * Handle easyimage callback on activity result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -281,8 +310,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param returnedPhotos
      * @return
      */
-    private List<Image> getImageElements(List<File> returnedPhotos) {
-        List<Image> imageElementList= new ArrayList<>();
+    private List<ImageData> getImageElements(List<File> returnedPhotos) {
+        List<ImageData> imageElementList= new ArrayList<>();
         for (File file: returnedPhotos){
 //            Image element = new Image(file);
 //            imageElementList.add(element);
@@ -321,7 +350,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
+     *
      * Starting location updates
+     *
+     * @param context
      */
     private void startLocationUpdates(Context context) {
         Intent intent = new Intent(context, LocationService.class);
@@ -396,6 +428,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     };
 
+    /**
+     * Once permissions have been requested
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -437,13 +475,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-    }
-
-    public boolean addPhoto(MenuItem item) {
-        Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
-        startActivity(intent);
-
-        return true;
     }
 
     /**

@@ -8,6 +8,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Data Object Model for Sensors
+ */
 @Dao
 public interface SensorDAO {
     @Insert

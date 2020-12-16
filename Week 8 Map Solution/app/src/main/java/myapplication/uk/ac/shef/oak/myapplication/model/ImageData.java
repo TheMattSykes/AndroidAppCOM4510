@@ -13,6 +13,9 @@ import java.io.ByteArrayOutputStream;
 
 import io.reactivex.annotations.NonNull;
 
+/**
+ * Image entity
+ */
 @Entity(tableName = "images")
 public class ImageData {
     @PrimaryKey(autoGenerate = true)

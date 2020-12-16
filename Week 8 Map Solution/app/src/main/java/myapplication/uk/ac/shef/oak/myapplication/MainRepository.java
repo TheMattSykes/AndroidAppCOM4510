@@ -22,6 +22,9 @@ import myapplication.uk.ac.shef.oak.myapplication.model.SensorData;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitDAO;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
+/**
+ * Repository for adding and retriving information to and from the database
+ */
 public class MainRepository extends ViewModel {
     private final ImageDAO imageDBDao;
     private final SensorDAO sensorDBDao;
@@ -34,15 +37,25 @@ public class MainRepository extends ViewModel {
         visitDBDao = db.visitDAO();
     }
 
-    // Image Queries + LiveData
+    /// Image Queries + LiveData
     public LiveData<List<ImageData>> getImages() {
         return imageDBDao.retrieveAllImages();
     }
 
+    /**
+     * Get a list of images by visit id
+     * @param visitId
+     * @return
+     */
     public LiveData<List<ImageData>> getImagesByVisit(int visitId) {
         return imageDBDao.retrieveVisitImages(visitId);
     }
 
+    /**
+     * Get images by search query
+     * @param search
+     * @return
+     */
     public LiveData<List<ImageData>> getImagesBySearch(String search) {
         return imageDBDao.retrieveImageSearch(search);
     }
@@ -52,6 +65,11 @@ public class MainRepository extends ViewModel {
         return sensorDBDao.retrieveSensorData();
     }
 
+    /**
+     * Get sensors by visit
+     * @param visitId
+     * @return
+     */
     public LiveData<List<SensorData>> getSensorsByVisit(int visitId) {
         return sensorDBDao.retrieveVisitSensorData(visitId);
     }
@@ -61,7 +79,9 @@ public class MainRepository extends ViewModel {
         return visitDBDao.retrieveVisits();
     }
 
-    // doesn't work >:c
+    /**
+     * Seed images into the Database
+     */
     public void seedImages(){
         ImageView imageView = new ImageView(null);
         imageView.setImageResource(R.drawable.joe1);
@@ -91,6 +111,9 @@ public class MainRepository extends ViewModel {
         new insertImageAsyncTask(imageDBDao).execute(image);
     }
 
+    /**
+     * Asych function to manage image db
+     */
     private static class insertImageAsyncTask extends AsyncTask<ImageData, Void, Void> {
         private ImageDAO mAsyncTaskDao;
         private LiveData<ImageData> imageData;
@@ -107,12 +130,12 @@ public class MainRepository extends ViewModel {
         }
     }
 
-    // Visit Insert functions
+    /// Visit Insert functions
     public void saveVisit(String title, String time){
         new insertVisitAsyncTask(visitDBDao).execute(new VisitData(title, time));
     }
 
-    // Visit Insert functions
+    /// Visit Insert functions
     public void saveVisit(VisitData visit){
         new insertVisitAsyncTask(visitDBDao).execute(visit);
     }
@@ -138,6 +161,7 @@ public class MainRepository extends ViewModel {
         new insertSensorAsyncTask(sensorDBDao).execute(
                 new SensorData(visitId, geolocation, barometer, temperature, time));
     }
+
 
     private static class insertSensorAsyncTask extends AsyncTask<SensorData, Void, Void> {
         private SensorDAO mAsyncTaskDao;

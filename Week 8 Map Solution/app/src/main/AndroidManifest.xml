@@ -51,11 +51,6 @@
         </activity>
 
         <activity
-            android:name=".activities.CameraActivity"
-            android:label="@string/title_activity_camera">
-        </activity>
-
-        <activity
             android:name=".activities.ShowImageActivity"
             />
 

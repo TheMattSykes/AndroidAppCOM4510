@@ -19,6 +19,9 @@ import java.util.Date;
 import myapplication.uk.ac.shef.oak.myapplication.activities.MapsActivity;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
+/**
+ * Activity to create a new visit with a title text input and button.
+ */
 public class NewVisit extends AppCompatActivity {
 
     private static AppCompatActivity activity;
@@ -29,6 +32,10 @@ public class NewVisit extends AppCompatActivity {
         return activity;
     }
 
+    /**
+     * Set current activity
+     * @param activity
+     */
     public static void setActivity(AppCompatActivity activity) {
         NewVisit.activity = activity;
     }

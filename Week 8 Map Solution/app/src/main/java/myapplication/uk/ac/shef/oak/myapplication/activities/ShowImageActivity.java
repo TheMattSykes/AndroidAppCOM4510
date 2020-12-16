@@ -14,6 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import myapplication.uk.ac.shef.oak.myapplication.R;
 
+/**
+ * ShowImageActivity
+ * Show an image when enlarged by the album view
+ *
+ * @Extends AppCompatActivity
+ */
 public class ShowImageActivity extends AppCompatActivity {
 
     @Override
@@ -51,7 +57,7 @@ public class ShowImageActivity extends AppCompatActivity {
     }
 
     public boolean editMetadata(MenuItem item) {
-        Intent intent = new Intent(ShowImageActivity.this, CameraActivity.class);
+        Intent intent = new Intent(ShowImageActivity.this, MainActivity.class);
         startActivity(intent);
 
         return true;

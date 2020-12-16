@@ -8,6 +8,9 @@ import androidx.room.PrimaryKey;
 import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
+/**
+ * Entity for Visits
+ */
 @Entity(tableName = "visits")
 public class VisitData {
     @PrimaryKey(autoGenerate = true)

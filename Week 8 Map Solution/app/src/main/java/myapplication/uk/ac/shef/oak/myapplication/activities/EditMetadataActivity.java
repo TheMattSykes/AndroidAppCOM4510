@@ -14,6 +14,13 @@ import android.widget.EditText;
 
 import myapplication.uk.ac.shef.oak.myapplication.R;
 
+/**
+ * EditMetadataActivity
+ * Activity allowing metadata of an image to be edited
+ *
+ * @Extends AppCompatActivity
+ * @Implements OnMapReadyCallback
+ */
 public class EditMetadataActivity extends AppCompatActivity {
 
     private static AppCompatActivity activity;

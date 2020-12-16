@@ -8,6 +8,10 @@ import androidx.room.Query;
 
 import java.util.List;
 
+
+/**
+ * Data Object Model for Images
+ */
 @Dao
 public interface ImageDAO {
     @Insert

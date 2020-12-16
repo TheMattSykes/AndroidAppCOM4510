@@ -12,7 +12,9 @@ import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-
+/**
+ * Barometer
+ */
 public class Barometer {
     private static final String TAG = Barometer.class.getSimpleName();
     private long mSamplingRateInMSecs;
