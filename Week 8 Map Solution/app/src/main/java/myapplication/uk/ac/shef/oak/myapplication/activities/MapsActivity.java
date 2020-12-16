@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2018. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
+ * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
-package myapplication.uk.ac.shef.oak.myapplication;
+package myapplication.uk.ac.shef.oak.myapplication.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.Image;
+import myapplication.uk.ac.shef.oak.myapplication.LocationService;
+import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
@@ -63,7 +67,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int ACCESS_FINE_LOCATION = 123;
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
-    //private MapView mapView;
     private Button mButtonEnd;
     private PendingIntent mLocationPendingIntent;
     private Barometer barometer;
@@ -84,6 +87,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static GoogleMap getMap() {
         return mMap;
     }
+
+    protected TextView mWeatherTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,22 +111,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Initialise Database
 //        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 //                AppDatabase.class, "imagedb").build();
-
-
-
-//        mButtonStart = (Button) findViewById(R.id.button_start);
-//        mButtonStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startLocationUpdates(getApplicationContext());
-//                accelerometer.startAccelerometerRecording();
-//                ambientTemp.startSensingTemperature();
-//                if (mButtonEnd != null)
-//                    mButtonEnd.setEnabled(true);
-//                mButtonStart.setEnabled(false);
-//            }
-//        });
-//        mButtonStart.setEnabled(true);
 
         mButtonEnd = (Button) findViewById(R.id.button_end);
         mButtonEnd.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +135,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         initEasyImage();
 
         initLocations();
+
+        mWeatherTextView = (TextView) findViewById(R.id.weather_text_view);
 
         int numberOfCameras = Camera.getNumberOfCameras();
 
@@ -334,7 +325,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             super.onLocationResult(locationResult);
             mCurrentLocation = locationResult.getLastLocation();
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-            Log.i("MAP", "new location " + mCurrentLocation.toString());
         }
     };
 

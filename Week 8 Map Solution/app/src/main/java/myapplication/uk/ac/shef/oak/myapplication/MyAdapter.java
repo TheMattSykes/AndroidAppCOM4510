@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.activities.ShowImageActivity;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
     static private Context context;
     private static List<Image> items;

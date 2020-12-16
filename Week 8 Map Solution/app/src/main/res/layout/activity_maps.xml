@@ -6,22 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MapsActivity">
+    tools:context=".activities.MapsActivity">
 
 
-    <LinearLayout xmlns:map="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+
+        <fragment
             android:id="@+id/map"
             class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
             android:scrollbars="vertical" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +43,13 @@
                 android:text="Stop" />
 
         </LinearLayout>
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/weather_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_map_camera"
@@ -51,9 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_photo"
         app:backgroundTint="@android:color/holo_orange_light"
-        app:fabSize="normal"
-        android:src="@drawable/ic_add_photo" />
+        app:fabSize="normal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_map_gallery"

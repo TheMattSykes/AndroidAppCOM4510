@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,16 +51,16 @@
         </activity>
 
         <activity
-            android:name=".CameraActivity"
+            android:name=".activities.CameraActivity"
             android:label="@string/title_activity_camera">
         </activity>
 
         <activity
-            android:name=".ShowImageActivity"
+            android:name=".activities.ShowImageActivity"
             />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps">
         </activity>
         <service android:name=".LocationService"></service>

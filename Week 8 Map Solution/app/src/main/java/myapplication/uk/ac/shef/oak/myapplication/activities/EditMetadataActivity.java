@@ -2,23 +2,17 @@
  * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
-package myapplication.uk.ac.shef.oak.myapplication;
+package myapplication.uk.ac.shef.oak.myapplication.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+
+import myapplication.uk.ac.shef.oak.myapplication.R;
 
 public class EditMetadataActivity extends AppCompatActivity {
 
