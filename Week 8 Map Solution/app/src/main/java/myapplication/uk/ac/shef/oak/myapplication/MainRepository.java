@@ -78,12 +78,17 @@ public class MainRepository extends ViewModel {
                 0.0, 0.0, "placeholder time");
     }
 
-    // Image Insert functions
+    /// Image Insert functions
     public void saveImage(String title, String description, int visitId,
                           Bitmap image, double lat, double lon, String time){
         ImageData imageData = new ImageData(title, description, visitId, null, lat, lon, time);
         imageData.setImage(image);
         new insertImageAsyncTask(imageDBDao).execute(imageData);
+    }
+
+    /// Image Insert functions
+    public void saveImage(ImageData image){
+        new insertImageAsyncTask(imageDBDao).execute(image);
     }
 
     private static class insertImageAsyncTask extends AsyncTask<ImageData, Void, Void> {
@@ -105,6 +110,11 @@ public class MainRepository extends ViewModel {
     // Visit Insert functions
     public void saveVisit(String title, String time){
         new insertVisitAsyncTask(visitDBDao).execute(new VisitData(title, time));
+    }
+
+    // Visit Insert functions
+    public void saveVisit(VisitData visit){
+        new insertVisitAsyncTask(visitDBDao).execute(visit);
     }
 
     private static class insertVisitAsyncTask extends AsyncTask<VisitData, Void, Void> {

@@ -27,12 +27,15 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.AlbumViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.NewVisit;
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.Visit;
 import myapplication.uk.ac.shef.oak.myapplication.VisitAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
 public class VisitsFragment extends Fragment {
 
@@ -41,9 +44,9 @@ public class VisitsFragment extends Fragment {
     private VisitsViewModel visitsViewModel;
 
 
-    private RecyclerView.Adapter mAdapter;
+    private VisitAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private List<VisitElement> visitsList = new ArrayList<>();
+    private List<VisitData> visitsList = new ArrayList<>();
 
 //    public void ImportFragment(Activity activity) {
 //        this.activity = activity;
@@ -64,6 +67,17 @@ public class VisitsFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
+
+        visitsViewModel = new ViewModelProvider(this).get(VisitsViewModel.class);
+
+        visitsViewModel.getVisits().observe(getViewLifecycleOwner(), new Observer<List<VisitData>>(){
+
+            @Override
+            public void onChanged(List<VisitData> visitsData) {
+                mAdapter.setVisits(visitsData);
+            }
+
+        });
 
         mRecyclerView = (RecyclerView) root.findViewById(R.id.visits_recycler_view);
 
@@ -88,7 +102,7 @@ public class VisitsFragment extends Fragment {
     }
 
     private void initData() {
-        visitsList.add(new VisitElement("TEST VISIT A"));
-        visitsList.add(new VisitElement("TEST VISIT B"));
+//        visitsList.add(new VisitData("TEST VISIT A", null));
+//        visitsList.add(new VisitData("TEST VISIT B", null));
     }
 }

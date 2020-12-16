@@ -22,7 +22,7 @@ import myapplication.uk.ac.shef.oak.myapplication.Visit;
                 VisitData.class,
                 SensorData.class,
                 ImageData.class},
-        version = 11,
+        version = 12,
         exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
@@ -38,7 +38,7 @@ public abstract class MainDatabase extends RoomDatabase {
             synchronized (MainDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = androidx.room.Room.databaseBuilder(context.getApplicationContext(),
-                            MainDatabase.class, "MainDatabase")
+                            MainDatabase.class, "MainDatabase").allowMainThreadQueries()
                             // Wipes and rebuilds instead of migrating if no Migration object.
                             // Migration is not part of this codelab.
                             .fallbackToDestructiveMigration()

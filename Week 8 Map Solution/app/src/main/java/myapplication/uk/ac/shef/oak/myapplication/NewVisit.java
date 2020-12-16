@@ -9,12 +9,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import myapplication.uk.ac.shef.oak.myapplication.activities.MapsActivity;
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
 public class NewVisit extends AppCompatActivity {
 
     private static AppCompatActivity activity;
+
+    private NewVisitViewModel visitViewModel;
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -29,6 +38,8 @@ public class NewVisit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_visit);
         setActivity(this);
+
+        visitViewModel = new ViewModelProvider(this).get(NewVisitViewModel.class);
 
         final EditText titleEditText = (EditText) findViewById(R.id.title_input);
         final Button startButton = (Button) findViewById(R.id.startButton);
@@ -56,6 +67,16 @@ public class NewVisit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String titleText = titleEditText.getText().toString();
+
+                Calendar calendar = Calendar.getInstance();
+                Date date = calendar.getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
+                String dateString = dateFormat.format(date);
+
+                VisitData visitData = new VisitData(titleText, dateString);
+
+                visitViewModel.insert(visitData);
+
                 if (titleText.length() > 0) {
                     // Switching over to the Maps activity and finishing this one
                     Intent intent = new Intent(view.getContext(), MapsActivity.class);

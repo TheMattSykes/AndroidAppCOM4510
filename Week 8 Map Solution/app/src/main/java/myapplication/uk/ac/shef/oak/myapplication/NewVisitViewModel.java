@@ -2,6 +2,10 @@
  * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
+/*
+ * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
+ */
+
 package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.app.Application;
@@ -13,15 +17,15 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
-public class MyViewModel extends AndroidViewModel {
+public class NewVisitViewModel extends AndroidViewModel {
     private final MainRepository mRepository;
 
-    LiveData<List<ImageData>> images;
+    LiveData<List<VisitData>> visits;
 
-    public MyViewModel (Application application) {
+    public NewVisitViewModel (Application application) {
         super(application);
         // creation and connection to the Repository
         mRepository = new MainRepository(application);
@@ -33,14 +37,14 @@ public class MyViewModel extends AndroidViewModel {
      * getter for the live data
      * @return
      */
-    public LiveData<List<ImageData>> getImages() {
-        if (images == null) {
-            images = new MutableLiveData<List<ImageData>>();
+    public LiveData<List<VisitData>> getVisits() {
+        if (visits == null) {
+            visits = new MutableLiveData<List<VisitData>>();
         }
-        return images;
+        return visits;
     }
 
-    public void insert(ImageData image) {
-        mRepository.saveImage(image);
+    public void insert(VisitData visit) {
+        mRepository.saveVisit(visit);
     }
 }

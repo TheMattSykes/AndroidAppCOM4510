@@ -16,13 +16,17 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageDAO;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 import myapplication.uk.ac.shef.oak.myapplication.model.MainDatabase;
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitDAO;
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
 public class MyRepository extends ViewModel {
     private final ImageDAO mDBDao;
+    private final VisitDAO vDBDao;
 
     public MyRepository(Application application) {
         MainDatabase db = MainDatabase.getDatabase(application);
         mDBDao = db.imageDAO();
+        vDBDao = db.visitDAO();
     }
 
     /**
@@ -37,6 +41,10 @@ public class MyRepository extends ViewModel {
 
     public void insertImage(ImageData image) {
         mDBDao.insert(image);
+    }
+
+    public void insertVisit(VisitData visit) {
+        vDBDao.insert(visit);
     }
 
     private static class insertAsyncTask extends AsyncTask<Image, Void, Void> {
