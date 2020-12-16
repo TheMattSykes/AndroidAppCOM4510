@@ -27,11 +27,14 @@ public class MainRepository extends ViewModel {
     private final SensorDAO sensorDBDao;
     private final VisitDAO visitDBDao;
 
+    private LiveData<List<ImageData>> allImages;
+
     public MainRepository(Application application) {
         MainDatabase db = MainDatabase.getDatabase(application);
         imageDBDao = db.imageDAO();
         sensorDBDao = db.sensorDAO();
         visitDBDao = db.visitDAO();
+        allImages = imageDBDao.retrieveAllImages();
     }
 
     // Image Queries + LiveData

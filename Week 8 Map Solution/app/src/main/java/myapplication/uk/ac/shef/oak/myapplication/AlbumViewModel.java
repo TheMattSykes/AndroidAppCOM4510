@@ -16,25 +16,39 @@ import java.util.List;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class AlbumViewModel extends AndroidViewModel {
-    private final MainRepository mainRepository;
+    private MainRepository mainRepository;
+    private LiveData<List<ImageData>> currentImages;
 
-    LiveData<List<ImageData>> images;
-
-    public AlbumViewModel(Application application) {
+    public AlbumViewModel(@NonNull Application application) {
         super(application);
-        // creation and connection to the Repository
         mainRepository = new MainRepository(application);
-        images = mainRepository.getImages();
+        currentImages = mainRepository.getImages();
     }
+
+    public LiveData<List<ImageData>> getCurrentImages(){
+            if (currentImages == null) {
+                currentImages = mainRepository.getImages();
+            }
+            return currentImages;
+        }
+
+    //LiveData<List<ImageData>> images;
+
+    //public AlbumViewModel(Application application) {
+    //    super(application);
+    //    // creation and connection to the Repository
+    //    mainRepository = new MainRepository(application);
+    //    images = mainRepository.getImages();
+    //}
 
     /**
      * getter for the live data
      * @return an updated list of images
      */
-    public LiveData<List<ImageData>> getImages() {
-        if (images == null) {
-            images = new MutableLiveData<List<ImageData>>();
-        }
-        return images;
-    }
+    //public LiveData<List<ImageData>> getImages() {
+    //    if (images == null) {
+    //        images = new MutableLiveData<List<ImageData>>();
+    //    }
+    //    return images;
+    //}
 }

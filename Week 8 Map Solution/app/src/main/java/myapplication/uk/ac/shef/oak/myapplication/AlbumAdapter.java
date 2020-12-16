@@ -13,18 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.PrimaryKey;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder> {
     static private Context context;
-    private static List<ImageData> items;
+    private static List<ImageData> items = new ArrayList<ImageData>();
 
     public class View_Holder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        public View_Holder(View view){
+        View_Holder(View view){
             super(view);
             imageView = (ImageView) view.findViewById(R.id.image_item);
         }
@@ -34,9 +36,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
         this.items = items;
     }
 
-    public AlbumAdapter(Context cont, List<ImageData> items){
+    public AlbumAdapter(Context cont){
         super();
-        this.items = items;
         context = cont;
     }
 
@@ -84,14 +85,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
     }
 
     public void setImages(List<ImageData> images){
-        items = images;
+        this.items = images;
     }
 
     public static List<ImageData> getItems() {
         return items;
-    }
-
-    public static void setItems(List<ImageData> items) {
-        AlbumAdapter.items = items;
     }
 }
