@@ -74,17 +74,17 @@ public class MainRepository extends ViewModel {
         imageView.setImageResource(R.drawable.joe3);
         Bitmap bitmap3 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         this.saveImage("joe1", "description of joe1", 1, bitmap1,
-                "placeholder geo", "placeholder time");
+                0.0, 0.0, "placeholder time");
         this.saveImage("joe2", "description of joe2", 2, bitmap2,
-                "placeholder geo", "placeholder time");
+                0.0, 0.0, "placeholder time");
         this.saveImage("joe3", "description of joe3", 3, bitmap3,
-                "placeholder geo", "placeholder time");
+                0.0, 0.0, "placeholder time");
     }
 
     // Image Insert functions
     public void saveImage(String title, String description, int visitId,
-                          Bitmap image, String geolocation, String time){
-        ImageData imageData = new ImageData(title, description, visitId, null, geolocation, time);
+                          Bitmap image, double lat, double lon, String time){
+        ImageData imageData = new ImageData(title, description, visitId, null, lat, lon, time);
         imageData.setImage(image);
         new insertImageAsyncTask(imageDBDao).execute(imageData);
     }

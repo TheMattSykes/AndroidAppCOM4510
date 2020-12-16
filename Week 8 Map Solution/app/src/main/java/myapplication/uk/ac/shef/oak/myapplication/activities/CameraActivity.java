@@ -1,10 +1,8 @@
 /*
- * Copyright (c) 2017. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
- *
- * some inspiration taken from https://stackoverflow.com/questions/40587168/simple-android-grid-example-using-recyclerview-with-gridlayoutmanager-like-the
+ * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
-package myapplication.uk.ac.shef.oak.myapplication;
+package myapplication.uk.ac.shef.oak.myapplication.activities;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -15,21 +13,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-//import androidx.core.design.widget.FloatingActionButton;
+import android.view.View;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-//import android.support.v7.widget.GridLayoutManager;
-//import android.support.v7.widget.RecyclerView;
-//import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -37,8 +31,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.Image;
+import myapplication.uk.ac.shef.oak.myapplication.ImageElement;
+import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
+import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
+import myapplication.uk.ac.shef.oak.myapplication.R;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
+
+//import androidx.core.design.widget.FloatingActionButton;
+//import android.support.v7.widget.GridLayoutManager;
+//import android.support.v7.widget.RecyclerView;
+//import android.support.v7.widget.Toolbar;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -66,15 +70,15 @@ public class CameraActivity extends AppCompatActivity {
         activity = this;
 
         // Get a new or existing ViewModel from the ViewModelProvider.
-        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+//        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
-        myViewModel.getImages().observe(this, new Observer<List<Image>>(){
-
-            @Override
-            public void onChanged(@Nullable final List<Image> images) {
-                photoAdapter.setPhotos(images);
-            }
-        });
+//        myViewModel.getImages().observe(this, new Observer<List<Image>>(){
+//
+//            @Override
+//            public void onChanged(@Nullable final List<Image> images) {
+//                photoAdapter.setPhotos(images);
+//            }
+//        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.grid_recycler_view);
 
