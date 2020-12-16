@@ -10,11 +10,7 @@ import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
 
-@Entity(tableName = "sensors",
-        foreignKeys = @ForeignKey(entity = VisitData.class,
-                parentColumns = "id",
-                childColumns = "visitId"),
-        indices = {@Index(value = {"visitId"})})
+@Entity(tableName = "sensors")
 public class SensorData {
     @PrimaryKey(autoGenerate = true)
     @androidx.annotation.NonNull

@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface ImageDAO {
     @Insert
-    void insertAll(ImageData... imageData);
+    void insertAll(List<ImageData> imageData);
 
     @Insert
     void insert(ImageData imageData);
@@ -20,7 +20,7 @@ public interface ImageDAO {
     void delete(ImageData imageData);
 
     @Delete
-    void deleteAll(ImageData... imageData);
+    void deleteAll(List<ImageData> imageData);
 
     // Retrieve a count of all images
     @Query("SELECT COUNT(*) FROM images")

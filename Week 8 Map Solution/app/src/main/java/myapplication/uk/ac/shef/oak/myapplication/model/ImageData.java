@@ -13,11 +13,7 @@ import java.io.ByteArrayOutputStream;
 
 import io.reactivex.annotations.NonNull;
 
-@Entity(tableName = "images",
-        foreignKeys = @ForeignKey(entity = VisitData.class,
-                                parentColumns = "id",
-                                childColumns = "visitId"),
-        indices = {@Index(value = {"visitId"})})
+@Entity(tableName = "images")
 public class ImageData {
     @PrimaryKey(autoGenerate = true)
     @androidx.annotation.NonNull

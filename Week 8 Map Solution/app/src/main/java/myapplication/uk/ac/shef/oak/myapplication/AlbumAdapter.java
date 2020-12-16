@@ -3,6 +3,7 @@ package myapplication.uk.ac.shef.oak.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
     static private Context context;
     private static List<ImageData> items;
 
+    public class View_Holder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+
+        public View_Holder(View view){
+            super(view);
+            imageView = (ImageView) view.findViewById(R.id.image_item);
+        }
+    }
+
     public AlbumAdapter(List<ImageData> items){
         this.items = items;
     }
@@ -35,9 +45,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
         //Inflate the layout, initialise the View Holder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_image,
                 parent, false);
-        View_Holder holder = new View_Holder(v);
-        context = parent.getContext();
-        return holder;
+
+        return new View_Holder(v);
     }
 
     @Override
@@ -48,6 +57,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
             if(items.get(position).getImage()!=null){
                 Bitmap myBitmap = items.get(position).getImage();
                 holder.imageView.setImageBitmap(myBitmap);
+                Log.i("Album Adapter", "Image isn't null");
+            } else {
+                Log.i("Album Adapter", "Image null, test data: title:"+items.get(position).getTitle()+"");
             }
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -73,15 +85,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder>
 
     public void setImages(List<ImageData> images){
         items = images;
-    }
-
-    public class View_Holder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-
-        View_Holder(View itemView){
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.image_item);
-        }
     }
 
     public static List<ImageData> getItems() {

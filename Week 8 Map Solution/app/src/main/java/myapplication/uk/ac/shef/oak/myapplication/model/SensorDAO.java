@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface SensorDAO {
     @Insert
-    void insertAll(SensorData... sensorData);
+    void insertAll(List<SensorData> sensorData);
 
     @Insert
     void insert(SensorData sensorData);
@@ -20,7 +20,7 @@ public interface SensorDAO {
     void delete(SensorData sensorData);
 
     @Delete
-    void deleteAll(SensorData... sensorData);
+    void deleteAll(List<SensorData> sensorData);
 
     @Query("SELECT COUNT(*) FROM sensors")
     int howManyElements();

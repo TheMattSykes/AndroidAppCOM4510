@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface VisitDAO {
     @Insert
-    void insertAll(VisitData... visitData);
+    void insertAll(List<VisitData> visitData);
 
     @Insert
     void insert(VisitData visitData);
@@ -20,7 +20,7 @@ public interface VisitDAO {
     void delete(VisitData visitData);
 
     @Delete
-    void deleteAll(VisitData... visitData);
+    void deleteAll(List<VisitData> visitData);
 
     @Query("SELECT COUNT(*) FROM visits")
     int howManyElements();

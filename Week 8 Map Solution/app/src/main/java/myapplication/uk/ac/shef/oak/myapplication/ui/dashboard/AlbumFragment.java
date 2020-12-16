@@ -46,6 +46,7 @@ public class AlbumFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         //albumViewModel =
         //        ViewModelProviders.of(this).get(AlbumViewModel.class);
         View root = inflater.inflate(R.layout.fragment_album, container, false);
@@ -77,8 +78,6 @@ public class AlbumFragment extends Fragment {
 //        mAdapter = new MyAdapter(myPictureList);
         imageAdapter = new AlbumAdapter(myImageList);
         mRecyclerView.setAdapter(imageAdapter);
-
-
 
         return root;
     }

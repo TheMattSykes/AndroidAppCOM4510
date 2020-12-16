@@ -9,13 +9,15 @@ import androidx.room.*;
 
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
+
 @Dao
 public interface VisitDao {
     @Query("SELECT * FROM visits")
     LiveData<Image> getAll();
 
     @Insert
-    void insertAll(Visit... visit);
+    void insertAll(List<VisitData> visit);
 
     @Insert
     void insert(Visit visit);
@@ -24,5 +26,5 @@ public interface VisitDao {
     void delete(Visit visit);
 
     @Delete
-    void deleteAll(Visit... visit);
+    void deleteAll(List<VisitData> visit);
 }
