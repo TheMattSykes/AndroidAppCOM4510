@@ -230,9 +230,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 Location location = mCurrentLocation;
 
-                double lat = mCurrentLocation.getLatitude();
-                double lon = mCurrentLocation.getLongitude();
+                double lat;
+                double lon;
 
+                if ((mCurrentLocation != null)) {
+                    lat = mCurrentLocation.getLatitude();
+                    lon = mCurrentLocation.getLongitude();
+                } else {
+                    lat = 0.0;
+                    lon = 0.0;
+                }
 
                 ImageData imd = new ImageData("Image Title", "Image description", 0, bytes, lat, lon, dateString);
 
