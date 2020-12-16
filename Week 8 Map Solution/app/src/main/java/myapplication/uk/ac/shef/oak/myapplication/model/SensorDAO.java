@@ -22,9 +22,12 @@ public interface SensorDAO {
     @Delete
     void deleteAll(SensorData... sensorData);
 
-    @Query("SELECT COUNT(*) FROM sensorData")
+    @Query("SELECT COUNT(*) FROM sensors")
     int howManyElements();
 
-    @Query("SELECT * FROM sensorData")
+    @Query("SELECT * FROM sensors")
     LiveData<List<SensorData>> retrieveSensorData();
+
+    @Query("SELECT * FROM sensors WHERE visitId = :visitId")
+    LiveData<List<SensorData>> retrieveVisitSensorData(int visitId);
 }

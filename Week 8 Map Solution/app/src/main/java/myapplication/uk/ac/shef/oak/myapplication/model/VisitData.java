@@ -17,8 +17,12 @@ public class VisitData {
     @ColumnInfo(name = "title")
     private String title;
 
-    public VisitData(String title) {
+    @ColumnInfo(name = "time")
+    private String time;
+
+    public VisitData(String title, String time) {
         this.title = title;
+        this.time = time;
     }
 
     @androidx.annotation.NonNull

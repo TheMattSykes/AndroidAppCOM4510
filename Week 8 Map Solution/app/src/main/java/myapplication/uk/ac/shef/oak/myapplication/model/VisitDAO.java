@@ -22,9 +22,9 @@ public interface VisitDAO {
     @Delete
     void deleteAll(VisitData... visitData);
 
-    @Query("SELECT COUNT(*) FROM visitData")
+    @Query("SELECT COUNT(*) FROM visits")
     int howManyElements();
 
-    @Query("SELECT * FROM visitData")
+    @Query("SELECT * FROM visits")
     LiveData<List<VisitData>> retrieveVisits();
 }

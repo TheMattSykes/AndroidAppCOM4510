@@ -6,6 +6,10 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.ByteArrayOutputStream;
+
 import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "images")
@@ -23,17 +27,23 @@ public class ImageData {
     @ColumnInfo(name = "visitId")
     private int visitId;
 
-    @ColumnInfo(name = "image")
-    @Ignore
-    public Bitmap image;
+    @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
+    public byte[] image;
 
     @ColumnInfo(name = "geolocation")
     private String geolocation;
 
-    public ImageData(String title, String description, int visitId) {
+    @ColumnInfo(name = "time")
+    private String time;
+
+    public ImageData(String title, String description, int visitId,
+                     Bitmap image, String geolocation, String time) {
         this.title = title;
         this.description = description;
         this.visitId = visitId;
+        this.setImage(image);
+        this.geolocation = geolocation;
+        this.time = time;
     }
 
     @androidx.annotation.NonNull
@@ -62,15 +72,26 @@ public class ImageData {
         this.visitId = visitId;
     }
     public Bitmap getImage() {
-        return image;
+        byte[] image = this.image;
+        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+        return bmp;
     }
     public void setImage(Bitmap image) {
-        this.image = image;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        this.image = byteArray;
     }
     public String getGeolocation() {
         return this.geolocation;
     }
     public void setGeolocation(String geolocation){
         this.geolocation = geolocation;
+    }
+    public String getTime(){
+        return this.time;
+    }
+    public void setTime(String time){
+        this.time = time;
     }
 }

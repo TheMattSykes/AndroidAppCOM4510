@@ -15,6 +15,9 @@ public class SensorData {
     @androidx.annotation.NonNull
     private int id=0;
 
+    @ColumnInfo(name = "visitId")
+    private int visitId;
+
     @ColumnInfo(name = "geolocation")
     private String geolocation;
 
@@ -23,6 +26,18 @@ public class SensorData {
 
     @ColumnInfo(name = "temperature")
     private String temperature;
+
+    @ColumnInfo(name = "time")
+    private String time;
+
+    public SensorData(int visitId, String geolocation, String barometer,
+                      String temperature, String time) {
+        this.visitId = visitId;
+        this.geolocation = geolocation;
+        this.barometer = barometer;
+        this.temperature = temperature;
+        this.time = time;
+    }
 
     @androidx.annotation.NonNull
     public int getId() {
