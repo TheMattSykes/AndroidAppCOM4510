@@ -22,7 +22,7 @@ import myapplication.uk.ac.shef.oak.myapplication.Visit;
                 VisitData.class,
                 SensorData.class,
                 ImageData.class},
-        version = 10,
+        version = 11,
         exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
@@ -63,9 +63,16 @@ public abstract class MainDatabase extends RoomDatabase {
             Executors.newSingleThreadExecutor().execute(new Runnable(){
                 @Override
                 public void run(){
-                    addVisits(ctx);
-                    addImages(ctx);
-                    addSensors(ctx);
+                    if (getDatabase(ctx).visitDAO().howManyElements() == 0) {
+                        addVisits(ctx);
+                    }
+                    if (getDatabase(ctx).imageDAO().howManyElements() == 0) {
+                        addImages(ctx);
+                    }
+                    if (getDatabase(ctx).sensorDAO().howManyElements() == 0) {
+                        addSensors(ctx);
+                    }
+                    Log.i("Checking Database", checkContents(ctx));
                 }
             });
         }
@@ -123,4 +130,12 @@ public abstract class MainDatabase extends RoomDatabase {
         getDatabase(ctx).sensorDAO().insertAll(sensorList);
         Log.i("Seeding Sensor", "sensor list seed data input");
     }
+
+    private static String checkContents(Context ctx){
+        int images = getDatabase(ctx).imageDAO().howManyElements();
+        int sensors = getDatabase(ctx).sensorDAO().howManyElements();
+        int visits = getDatabase(ctx).visitDAO().howManyElements();
+        return "There are: "+visits+" visits, "+images+" images and "+sensors+" sensors in the database";
+    }
+
 }
