@@ -106,7 +106,6 @@ public class MainRepository extends ViewModel {
         new insertImageAsyncTask(imageDBDao).execute(imageData);
     }
 
-    /// Image Insert functions
     public void saveImage(ImageData image){
         new insertImageAsyncTask(imageDBDao).execute(image);
     }

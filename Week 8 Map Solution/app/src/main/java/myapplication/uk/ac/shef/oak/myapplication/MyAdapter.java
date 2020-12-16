@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2017. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
-
+/*
 package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.content.Context;
@@ -17,16 +17,17 @@ import android.widget.ImageView;
 import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.activities.ShowImageActivity;
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
     static private Context context;
-    private static List<Image> items;
+    private static List<ImageData> items;
 
-    public MyAdapter(List<Image> items) {
+    public MyAdapter(List<ImageData> items) {
         this.items = items;
     }
 
-    public MyAdapter(Context cont, List<Image> items) {
+    public MyAdapter(Context cont, List<ImageData> items) {
         super();
         this.items = items;
         context = cont;
@@ -48,27 +49,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
         //Use the provided View Holder on the onCreateViewHolder method to populate the
         // current row on the RecyclerView
         if (holder!=null && items.get(position)!=null) {
-            if (items.get(position).image !=-1 ) {
-                holder.imageView.setImageResource(items.get(position).image);
-            } else if (items.get(position).filepath!=null){
-                Bitmap myBitmap = BitmapFactory.decodeFile(items.get(position).filepath);
-                holder.imageView.setImageBitmap(myBitmap);
-            }
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ShowImageActivity.class);
-                    intent.putExtra("position", position);
-                    context.startActivity(intent);
-                }
-            });
+            //if (items.get(position).image !=-1 ) {
+            //    holder.imageView.setImageResource(items.get(position).image);
+            //} else if (items.get(position).filepath!=null){
+            //    Bitmap myBitmap = BitmapFactory.decodeFile(items.get(position).filepath);
+            //    holder.imageView.setImageBitmap(myBitmap);
+            //}
+            //holder.itemView.setOnClickListener(new View.OnClickListener() {
+            //    @Override
+            //    public void onClick(View v) {
+            //        Intent intent = new Intent(context, ShowImageActivity.class);
+            //        intent.putExtra("position", position);
+            //        context.startActivity(intent);
+            //    }
+            //});
         }
         //animate(holder);
     }
 
 
     // convenience method for getting data at click position
-    Image getItem(int id) {
+    ImageData getItem(int id) {
         return items.get(id);
     }
 
@@ -77,7 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
         return items.size();
     }
 
-    public void setPhotos(List<Image> images) {
+    public void setPhotos(List<ImageData> images) {
         items = images;
     }
 
@@ -93,11 +94,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.View_Holder> {
 
     }
 
-    public static List<Image> getItems() {
+    public static List<ImageData> getItems() {
         return items;
     }
 
-    public static void setItems(List<Image> items) {
+    public static void setItems(List<ImageData> items) {
         MyAdapter.items = items;
     }
-}
+}*/

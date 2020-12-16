@@ -28,12 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.AlbumViewModel;
-import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
+//import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.NewVisit;
 import myapplication.uk.ac.shef.oak.myapplication.R;
-import myapplication.uk.ac.shef.oak.myapplication.Visit;
 import myapplication.uk.ac.shef.oak.myapplication.VisitAdapter;
-import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
 
@@ -77,14 +75,14 @@ public class VisitsFragment extends Fragment {
         });
 
         mRecyclerView = (RecyclerView) root.findViewById(R.id.visits_recycler_view);
-
+        initData();
         // set up the RecyclerView
         int numberOfColumns = 1;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         mAdapter = new VisitAdapter(visitsList);
         mRecyclerView.setAdapter(mAdapter);
 
-        initData();
+
 
         return root;
     }

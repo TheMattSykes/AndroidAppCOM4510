@@ -24,9 +24,6 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.AlbumAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.AlbumViewModel;
-import myapplication.uk.ac.shef.oak.myapplication.Image;
-import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
-import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
@@ -75,7 +72,7 @@ public class AlbumFragment extends Fragment {
         int numberOfColumns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(root.getContext(), numberOfColumns));
 //        mAdapter = new MyAdapter(myPictureList);
-        imageAdapter = new AlbumAdapter(myImageList);
+        imageAdapter = new AlbumAdapter(getContext(), myImageList);
         mRecyclerView.setAdapter(imageAdapter);
 
         return root;

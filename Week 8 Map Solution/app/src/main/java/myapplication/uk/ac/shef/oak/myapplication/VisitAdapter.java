@@ -54,17 +54,6 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder>
         } else {
 
         }
-
-            // CHANGE THIS TO OPEN ROUTE ACTIVITY
-
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(context, ShowImageActivity.class);
-//                    intent.putExtra("position", position);
-//                    context.startActivity(intent);
-//                }
-//            });
     }
 
 
@@ -100,11 +89,12 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder>
 
     public List<VisitData> getVisits() { return items; }
 
-//    public static List<VisitElement> getItems() {
-//        return items;
-//    }
-//
-//    public static void setItems(List<VisitElement> items) {
-//        VisitAdapter.items = items;
-//    }
+
+    public static List<VisitData> getItems() {
+        return items;
+    }
+
+    public static void setItems(List<VisitData> items) {
+        VisitAdapter.items = items;
+    }
 }

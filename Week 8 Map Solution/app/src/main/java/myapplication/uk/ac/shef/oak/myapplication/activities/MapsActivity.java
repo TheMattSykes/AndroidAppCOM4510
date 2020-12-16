@@ -65,7 +65,6 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
-import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.LocationService;
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
