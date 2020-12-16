@@ -7,36 +7,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-//import androidx.core.design.widget.FloatingActionButton;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.ui.home.VisitsViewModel;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
+
+//import androidx.core.design.widget.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     private Activity activity;
@@ -46,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private List<VisitElement> visitsList = new ArrayList<>();
 
     private VisitsViewModel visitsViewModel;
+    protected static ArrayList<LatLng> pathPoints = new ArrayList<>();
+    private Button mButtonResume;
 
 
     @Override
@@ -61,17 +52,43 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_visits, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_visits, R.id.navigation_album, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        mButtonResume = (Button) findViewById(R.id.button_resume);
+        mButtonResume.setVisibility(View.INVISIBLE);
+        mButtonResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Switch to the maps activity
+                Intent intent = new Intent(v.getContext(), MapsActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        // Set resume button visible if there is an unfinished path present
+        if (pathPoints.size() > 0)
+            mButtonResume.setVisibility(View.VISIBLE);
 //
 //        initData();
 
 //        visitsAdapter = new VisitsAdapter(visitsList);
 //        mRecyclerView.setAdapter(visitsAdapter);
 
+    }
+
+    /**
+     * Resuming the activity and making the resume button visible if there is an unfinished path
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Make resume button visible if there is an unfinished path present
+        if (pathPoints.size() > 0)
+            mButtonResume.setVisibility(View.VISIBLE);
     }
 
     public boolean newVisit(MenuItem item) {

@@ -70,8 +70,10 @@ public class VisitsFragment extends Fragment {
         // set up the RecyclerView
         int numberOfColumns = 1;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        initData();
         mAdapter = new VisitAdapter(visitsList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        initData();
 
         return root;
     }

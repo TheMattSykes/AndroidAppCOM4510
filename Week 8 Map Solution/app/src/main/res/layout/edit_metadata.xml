@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="wrap_content"
+android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EditMetadata">
+
+        <TextView
+            android:id="@+id/metadataText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="Edit Image Metadata"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="Title"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/metadataText" />
+
+        <EditText
+            android:id="@+id/title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:hint="Set the image description"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/titleText"
+            tools:layout_editor_absoluteX="75dp" />
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="Description"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/title_input" />
+
+        <EditText
+            android:id="@+id/description_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:hint="Set the image title"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/titleText"
+            tools:layout_editor_absoluteX="75dp" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="220dp"
+            android:background="@android:color/holo_blue_dark"
+            android:enabled="false"
+            android:text="Save"
+            app:layout_constraintTop_toBottomOf="@+id/description_input" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

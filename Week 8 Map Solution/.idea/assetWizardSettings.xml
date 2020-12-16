@@ -48,6 +48,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="text" value="Edit" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -59,6 +61,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="text" value="Edit" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -68,7 +72,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_open_gallery" />
+                                      <entry key="assetType" value="TEXT" />
+                                      <entry key="outputName" value="ic_edit" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

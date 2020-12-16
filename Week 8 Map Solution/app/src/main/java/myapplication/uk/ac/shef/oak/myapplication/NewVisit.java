@@ -55,8 +55,10 @@ public class NewVisit extends AppCompatActivity {
             public void onClick(View view) {
                 String titleText = titleEditText.getText().toString();
                 if (titleText.length() > 0) {
+                    // Switching over to the Maps activity and finishing this one
                     Intent intent = new Intent(view.getContext(), MapsActivity.class);
                     view.getContext().startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -11,13 +11,13 @@
         android:title="Visits" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_album"
         android:icon="@drawable/ic_gallery"
         android:title="Album" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_info"
-        android:title="Metadata" />
+        android:title="Help" />
 
 </menu>
