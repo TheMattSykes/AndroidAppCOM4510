@@ -11,12 +11,18 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageDAO;
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
+import myapplication.uk.ac.shef.oak.myapplication.model.MainDatabase;
+
 public class MyRepository extends ViewModel {
-    private final ImageDao mDBDao;
+    private final ImageDAO mDBDao;
 
     public MyRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
-        mDBDao = db.imageDao();
+        MainDatabase db = MainDatabase.getDatabase(application);
+        mDBDao = db.imageDAO();
     }
 
     /**
@@ -24,8 +30,8 @@ public class MyRepository extends ViewModel {
      ViewModel
      * @return
      */
-    public LiveData<Image> getImages() {
-        return mDBDao.getAll();
+    public LiveData<List<ImageData>> getImages() {
+        return mDBDao.retrieveAllImages();
     }
 
     private static class insertAsyncTask extends AsyncTask<Image, Void, Void> {

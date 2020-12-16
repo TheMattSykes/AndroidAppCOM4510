@@ -2,6 +2,7 @@ package myapplication.uk.ac.shef.oak.myapplication.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
@@ -9,7 +10,11 @@ import android.graphics.Bitmap;
 import io.reactivex.annotations.NonNull;
 
 
-@Entity(tableName = "sensors")
+@Entity(tableName = "sensors",
+        foreignKeys = @ForeignKey(entity = VisitData.class,
+                parentColumns = "id",
+                childColumns = "visitId"),
+        indices = {@Index(value = {"visitId"})})
 public class SensorData {
     @PrimaryKey(autoGenerate = true)
     @androidx.annotation.NonNull
