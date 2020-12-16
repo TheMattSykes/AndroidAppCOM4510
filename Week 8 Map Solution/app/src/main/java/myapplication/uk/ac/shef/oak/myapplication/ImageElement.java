@@ -6,7 +6,7 @@ package myapplication.uk.ac.shef.oak.myapplication;
 
 import java.io.File;
 
-class ImageElement {
+public class ImageElement {
     int image=-1;
     File file=null;
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020. This code has been developed by Fabio Ciravegna, The University of Sheffield. All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
-package myapplication.uk.ac.shef.oak.myapplication;
+package myapplication.uk.ac.shef.oak.myapplication.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,9 +23,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.NewVisit;
+import myapplication.uk.ac.shef.oak.myapplication.R;
+import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
 import myapplication.uk.ac.shef.oak.myapplication.ui.home.VisitsViewModel;
-
-//import androidx.core.design.widget.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     private Activity activity;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<VisitElement> visitsList = new ArrayList<>();
 
     private VisitsViewModel visitsViewModel;
-    protected static ArrayList<LatLng> pathPoints = new ArrayList<>();
+    public static ArrayList<LatLng> pathPoints = new ArrayList<>();
     private Button mButtonResume;
 
 

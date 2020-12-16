@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import myapplication.uk.ac.shef.oak.myapplication.activities.MapsActivity;
+
 public class NewVisit extends AppCompatActivity {
 
     private static AppCompatActivity activity;

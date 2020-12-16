@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="myapplication.uk.ac.shef.oak.myapplication.MainActivity"
+    tools:context="myapplication.uk.ac.shef.oak.myapplication.activities.MainActivity"
     tools:showIn="@layout/fragment_visits">
 
     <androidx.recyclerview.widget.RecyclerView
