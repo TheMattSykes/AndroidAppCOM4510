@@ -60,6 +60,10 @@ public class MainRepository extends ViewModel {
         return imageDBDao.retrieveImageSearch(search);
     }
 
+    public ImageData getImageById(int id){
+        return imageDBDao.retrieveImageByID(id);
+    }
+
     // Sensor Queries + LiveData
     public LiveData<List<SensorData>> getSensors(){
         return sensorDBDao.retrieveSensorData();

@@ -23,10 +23,14 @@
 <!--            app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
-
    <ImageView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:id="@+id/image"/>
 
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:textColor="#000"
+       android:id="@+id/text"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
