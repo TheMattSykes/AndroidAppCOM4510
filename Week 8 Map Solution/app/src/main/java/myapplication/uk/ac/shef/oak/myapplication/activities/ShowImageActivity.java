@@ -86,7 +86,7 @@ public class ShowImageActivity extends AppCompatActivity {
     }
 
     public boolean editMetadata(MenuItem item) {
-        Intent intent = new Intent(ShowImageActivity.this, MainActivity.class);
+        Intent intent = new Intent(ShowImageActivity.this, EditMetadataActivity.class);
         startActivity(intent);
 
         return true;
