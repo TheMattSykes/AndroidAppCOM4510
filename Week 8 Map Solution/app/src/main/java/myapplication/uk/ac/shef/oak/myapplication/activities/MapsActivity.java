@@ -60,7 +60,6 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
-import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.LocationService;
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
@@ -90,7 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private MyViewModel photoViewModel;
 
-    private List<Image> returnedPictureList = new ArrayList<>();
+    private List<ImageData> returnedPictureList = new ArrayList<>();
 
     public static AppCompatActivity getActivity() {
         return activity;
@@ -274,8 +273,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param returnedPhotos
      * @return
      */
-    private List<Image> getImageElements(List<File> returnedPhotos) {
-        List<Image> imageElementList= new ArrayList<>();
+    private List<ImageData> getImageElements(List<File> returnedPhotos) {
+        List<ImageData> imageElementList= new ArrayList<>();
         for (File file: returnedPhotos){
 //            Image element = new Image(file);
 //            imageElementList.add(element);
@@ -432,12 +431,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    public boolean addPhoto(MenuItem item) {
-        Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
-        startActivity(intent);
+   // public boolean addPhoto(MenuItem item) {
+   //     Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+   //     startActivity(intent);
 
-        return true;
-    }
+   //     return true;
+   // }
 
     /**
      * check permissions are necessary starting from Android 6

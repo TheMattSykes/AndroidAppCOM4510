@@ -20,15 +20,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.model.VisitData;
+
 public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder> {
     static private Context context;
-    private static List<VisitElement> items;
+    private static List<VisitData> items;
 
-    public VisitAdapter(List<VisitElement> items) {
+    public VisitAdapter(List<VisitData> items) {
         this.items = items;
     }
 
-    public VisitAdapter(Context cont, List<VisitElement> items) {
+    public VisitAdapter(Context cont, List<VisitData> items) {
         super();
         this.items = items;
         context = cont;
@@ -48,12 +50,12 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder>
     public void onBindViewHolder(@NonNull VisitAdapter.View_Holder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the
         // current row on the RecyclerView
-        if (holder!=null && items.get(position)!=null) {
-            if (items.get(position).visit != -1 ) {
-                holder.textView.setText(items.get(position).visit);
-            } else if (items.get(position).name!=null){
-                holder.textView.setText(items.get(position).name);
-            }
+        //if (holder!=null && items.get(position)!=null) {
+        //    if (items.get(position).visit != -1 ) {
+        //        holder.textView.setText(items.get(position).visit);
+        //    } else if (items.get(position).name!=null){
+        //        holder.textView.setText(items.get(position).name);
+        //    }
 
             // CHANGE THIS TO OPEN ROUTE ACTIVITY
 
@@ -65,12 +67,12 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder>
 //                    context.startActivity(intent);
 //                }
 //            });
-        }
+        //}
     }
 
 
     // convenience method for getting data at click position
-    VisitElement getItem(int id) {
+    VisitData getItem(int id) {
         return items.get(id);
     }
 
@@ -94,11 +96,11 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.View_Holder>
 
     }
 
-    public static List<VisitElement> getItems() {
+    public static List<VisitData> getItems() {
         return items;
     }
 
-    public static void setItems(List<VisitElement> items) {
+    public static void setItems(List<VisitData> items) {
         VisitAdapter.items = items;
     }
 }

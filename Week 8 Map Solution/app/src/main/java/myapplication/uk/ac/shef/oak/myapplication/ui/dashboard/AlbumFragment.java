@@ -24,9 +24,6 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.AlbumAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.AlbumViewModel;
-import myapplication.uk.ac.shef.oak.myapplication.Image;
-import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
-import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 
 import myapplication.uk.ac.shef.oak.myapplication.R;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;

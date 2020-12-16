@@ -61,29 +61,16 @@ public class MainRepository extends ViewModel {
         return visitDBDao.retrieveVisits();
     }
 
-    // doesn't work >:c
-    public void seedImages(){
-        ImageView imageView = new ImageView(null);
-        imageView.setImageResource(R.drawable.joe1);
-        Bitmap bitmap1 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        imageView.setImageResource(R.drawable.joe2);
-        Bitmap bitmap2 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        imageView.setImageResource(R.drawable.joe3);
-        Bitmap bitmap3 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        this.saveImage("joe1", "description of joe1", 1, bitmap1,
-                0.0, 0.0, "placeholder time");
-        this.saveImage("joe2", "description of joe2", 2, bitmap2,
-                0.0, 0.0, "placeholder time");
-        this.saveImage("joe3", "description of joe3", 3, bitmap3,
-                0.0, 0.0, "placeholder time");
-    }
-
     // Image Insert functions
     public void saveImage(String title, String description, int visitId,
                           Bitmap image, double lat, double lon, String time){
         ImageData imageData = new ImageData(title, description, visitId, null, lat, lon, time);
         imageData.setImage(image);
         new insertImageAsyncTask(imageDBDao).execute(imageData);
+    }
+
+    public void saveImage(ImageData image){
+        new insertImageAsyncTask(imageDBDao).execute(image);
     }
 
     private static class insertImageAsyncTask extends AsyncTask<ImageData, Void, Void> {

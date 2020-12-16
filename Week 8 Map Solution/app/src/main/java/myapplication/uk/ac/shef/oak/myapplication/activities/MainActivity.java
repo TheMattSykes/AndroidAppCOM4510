@@ -25,7 +25,7 @@ import java.util.List;
 
 import myapplication.uk.ac.shef.oak.myapplication.NewVisit;
 import myapplication.uk.ac.shef.oak.myapplication.R;
-import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
+//import myapplication.uk.ac.shef.oak.myapplication.VisitElement;
 import myapplication.uk.ac.shef.oak.myapplication.ui.home.VisitsViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
-    private List<VisitElement> visitsList = new ArrayList<>();
+    //private List<VisitElement> visitsList = new ArrayList<>();
 
     private VisitsViewModel visitsViewModel;
     public static ArrayList<LatLng> pathPoints = new ArrayList<>();

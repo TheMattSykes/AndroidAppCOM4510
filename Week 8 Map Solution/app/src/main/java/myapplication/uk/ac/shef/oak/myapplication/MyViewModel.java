@@ -12,19 +12,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
-
-import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class MyViewModel extends AndroidViewModel {
-    private final MyRepository mRepository;
+    private final MainRepository mRepository;
 
     LiveData<List<ImageData>> images;
 
     public MyViewModel (Application application) {
         super(application);
         // creation and connection to the Repository
-        mRepository = new MyRepository(application);
+        mRepository = new MainRepository(application);
 //        images = mRepository.getNumberData();
     }
 
@@ -41,6 +39,6 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public void insert(ImageData image) {
-        mRepository.insertImage(image);
+        mRepository.saveImage(image);
     }
 }
