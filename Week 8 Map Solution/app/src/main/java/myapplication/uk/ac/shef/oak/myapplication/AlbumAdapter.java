@@ -15,6 +15,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.activities.ShowImageActivity;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.View_Holder> {

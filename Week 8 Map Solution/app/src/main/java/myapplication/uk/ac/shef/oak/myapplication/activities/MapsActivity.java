@@ -58,13 +58,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-<<<<<<< HEAD:Week 8 Map Solution/app/src/main/java/myapplication/uk/ac/shef/oak/myapplication/MapsActivity.java
+import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
-=======
 import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.LocationService;
 import myapplication.uk.ac.shef.oak.myapplication.R;
->>>>>>> 06e16644d764234f76350ab5eff9bbecd8d840e3:Week 8 Map Solution/app/src/main/java/myapplication/uk/ac/shef/oak/myapplication/activities/MapsActivity.java
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Accelerometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Barometer;
 import myapplication.uk.ac.shef.oak.myapplication.sensors.Temperature;
@@ -133,24 +131,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 //                AppDatabase.class, "imagedb").build();
 
-<<<<<<< HEAD:Week 8 Map Solution/app/src/main/java/myapplication/uk/ac/shef/oak/myapplication/MapsActivity.java
 
-//        mButtonStart = (Button) findViewById(R.id.button_start);
-//        mButtonStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startLocationUpdates(getApplicationContext());
-//                accelerometer.startAccelerometerRecording();
-//                ambientTemp.startSensingTemperature();
-//                if (mButtonEnd != null)
-//                    mButtonEnd.setEnabled(true);
-//                mButtonStart.setEnabled(false);
-//            }
-//        });
-//        mButtonStart.setEnabled(true);
-
-=======
->>>>>>> 06e16644d764234f76350ab5eff9bbecd8d840e3:Week 8 Map Solution/app/src/main/java/myapplication/uk/ac/shef/oak/myapplication/activities/MapsActivity.java
         mButtonEnd = (Button) findViewById(R.id.button_end);
         mButtonEnd.setOnClickListener(new View.OnClickListener() {
             @Override
