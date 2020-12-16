@@ -73,7 +73,7 @@ public class AlbumFragment extends Fragment {
         int numberOfColumns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(root.getContext(), numberOfColumns));
 //        mAdapter = new MyAdapter(myPictureList);
-        imageAdapter = new AlbumAdapter(myImageList);
+        imageAdapter = new AlbumAdapter(getContext(), myImageList);
         mRecyclerView.setAdapter(imageAdapter);
 
         return root;
