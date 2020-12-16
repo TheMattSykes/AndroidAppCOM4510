@@ -11,8 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                 VisitData.class,
                 SensorData.class,
                 ImageData.class},
-        version = 1,
-        exportSchema = false)
+        version = 2,
+        exportSchema = true)
 public abstract class MainDatabase extends RoomDatabase {
     public abstract VisitDAO visitDAO();
     public abstract SensorDAO sensorDAO();

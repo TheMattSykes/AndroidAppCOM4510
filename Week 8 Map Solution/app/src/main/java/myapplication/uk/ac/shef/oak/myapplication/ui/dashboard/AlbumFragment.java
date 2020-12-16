@@ -22,31 +22,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import myapplication.uk.ac.shef.oak.myapplication.AlbumAdapter;
+import myapplication.uk.ac.shef.oak.myapplication.AlbumViewModel;
 import myapplication.uk.ac.shef.oak.myapplication.Image;
 import myapplication.uk.ac.shef.oak.myapplication.MyAdapter;
 import myapplication.uk.ac.shef.oak.myapplication.MyViewModel;
 
 import myapplication.uk.ac.shef.oak.myapplication.R;
+import myapplication.uk.ac.shef.oak.myapplication.model.ImageData;
 
 
 public class AlbumFragment extends Fragment {
 
-    private AlbumViewModel albumViewModel;
+    //private AlbumViewModel albumViewModel;
 
-    private List<Image> myPictureList = new ArrayList<>();
+    private List<ImageData> myImageList = new ArrayList<>();
     private RecyclerView.Adapter  mAdapter;
-    private MyAdapter photoAdapter;
+    private AlbumAdapter imageAdapter;
     private RecyclerView mRecyclerView;
-
     private Activity activity;
-
-    LiveData<Image> stringToDisplay;
-    private MyViewModel myViewModel;
+    LiveData<ImageData> stringToDisplay;
+    private AlbumViewModel albumViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        albumViewModel =
-                ViewModelProviders.of(this).get(AlbumViewModel.class);
+        //albumViewModel =
+        //        ViewModelProviders.of(this).get(AlbumViewModel.class);
         View root = inflater.inflate(R.layout.fragment_album, container, false);
 //        final TextView textView = root.findViewById(R.id.text_album);
 //        albumViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -57,14 +58,15 @@ public class AlbumFragment extends Fragment {
 //        });
 
         // Get a new or existing ViewModel from the ViewModelProvider.
-        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+        albumViewModel = new ViewModelProvider(this).get(AlbumViewModel.class);
 
-        myViewModel.getImages().observe(getViewLifecycleOwner(), new Observer<List<Image>>(){
+        albumViewModel.getImages().observe(getViewLifecycleOwner(), new Observer<List<ImageData>>(){
 
             @Override
-            public void onChanged(@Nullable final List<Image> images) {
-                photoAdapter.setPhotos(images);
+            public void onChanged(List<ImageData> imageData) {
+                imageAdapter.setImages(imageData);
             }
+
         });
 
         mRecyclerView = (RecyclerView) root.findViewById(R.id.grid_recycler_view);
@@ -73,8 +75,8 @@ public class AlbumFragment extends Fragment {
         int numberOfColumns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(root.getContext(), numberOfColumns));
 //        mAdapter = new MyAdapter(myPictureList);
-        photoAdapter = new MyAdapter(myPictureList);
-        mRecyclerView.setAdapter(photoAdapter);
+        imageAdapter = new AlbumAdapter(myImageList);
+        mRecyclerView.setAdapter(imageAdapter);
 
 
 

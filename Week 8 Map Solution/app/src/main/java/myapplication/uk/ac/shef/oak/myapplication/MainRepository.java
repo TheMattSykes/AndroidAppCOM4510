@@ -2,10 +2,15 @@ package myapplication.uk.ac.shef.oak.myapplication;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.room.Room;
 
 import java.util.List;
 
@@ -56,11 +61,29 @@ public class MainRepository extends ViewModel {
         return visitDBDao.retrieveVisits();
     }
 
+    // doesn't work >:c
+    public void seedImages(){
+        ImageView imageView = new ImageView(null);
+        imageView.setImageResource(R.drawable.joe1);
+        Bitmap bitmap1 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        imageView.setImageResource(R.drawable.joe2);
+        Bitmap bitmap2 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        imageView.setImageResource(R.drawable.joe3);
+        Bitmap bitmap3 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        this.saveImage("joe1", "description of joe1", 1, bitmap1,
+                "placeholder geo", "placeholder time");
+        this.saveImage("joe2", "description of joe2", 2, bitmap2,
+                "placeholder geo", "placeholder time");
+        this.saveImage("joe3", "description of joe3", 3, bitmap3,
+                "placeholder geo", "placeholder time");
+    }
+
     // Image Insert functions
     public void saveImage(String title, String description, int visitId,
                           Bitmap image, String geolocation, String time){
-        new insertImageAsyncTask(imageDBDao).execute(
-                new ImageData(title, description, visitId, image, geolocation, time));
+        ImageData imageData = new ImageData(title, description, visitId, null, geolocation, time);
+        imageData.setImage(image);
+        new insertImageAsyncTask(imageDBDao).execute(imageData);
     }
 
     private static class insertImageAsyncTask extends AsyncTask<ImageData, Void, Void> {
@@ -74,6 +97,7 @@ public class MainRepository extends ViewModel {
         @Override
         protected Void doInBackground(ImageData... imageData) {
             mAsyncTaskDao.insert(imageData[0]);
+            Log.i("MainRepository", "Image saved:"+imageData[0].getTitle()+"");
             return null;
         }
     }

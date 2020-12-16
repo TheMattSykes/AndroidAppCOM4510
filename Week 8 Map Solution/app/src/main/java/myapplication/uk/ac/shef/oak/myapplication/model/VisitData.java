@@ -38,4 +38,10 @@ public class VisitData {
     public void setTitle(String title){
         this.title = title;
     }
+    public String getTime() {
+        return this.time;
+    }
+    public void setTime(String time){
+        this.time = time;
+    }
 }

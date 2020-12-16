@@ -37,11 +37,11 @@ public class ImageData {
     private String time;
 
     public ImageData(String title, String description, int visitId,
-                     Bitmap image, String geolocation, String time) {
+                     byte[] image, String geolocation, String time) {
         this.title = title;
         this.description = description;
         this.visitId = visitId;
-        this.setImage(image);
+        this.image = image;
         this.geolocation = geolocation;
         this.time = time;
     }
