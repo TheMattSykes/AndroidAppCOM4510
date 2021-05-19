@@ -2,4 +2,4 @@
 
 Assignment to create an Android application based on places visited with a Google Map.
 
-Awarded 62% 2.1.
+Awarded 63% 2.1.
